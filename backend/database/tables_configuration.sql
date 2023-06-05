@@ -1,18 +1,18 @@
 CREATE TABLE `users` (
-  `id` integer PRIMARY KEY,
+  `id` integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(255),
   `email` varchar(255),
   `company_name` varchar(255),
   `city` varchar(255),
-  `valid` bool
+  `valid` BOOLEAN
 );
 
 CREATE TABLE `todos` (
   `id` integer PRIMARY KEY,
   `userId` integer,
   `title` varchar(255),
-  `completed` bool,
-  `valid` bool
+  `completed` BOOLEAN,
+  `valid` BOOLEAN
 );
 
 CREATE TABLE `posts` (
@@ -20,7 +20,7 @@ CREATE TABLE `posts` (
   `userId` integer,
   `title` varchar(255),
   `body` varchar(255),
-  `valid` bool
+  `valid` BOOLEAN
 );
 
 CREATE TABLE `comments` (
@@ -29,7 +29,7 @@ CREATE TABLE `comments` (
   `name` varchar(255),
   `email` varchar(255),
   `body` varchar(255),
-  `valid` bool
+  `valid` BOOLEAN
 );
 
 CREATE TABLE `user_password` (
@@ -37,7 +37,7 @@ CREATE TABLE `user_password` (
   `userId` integer,
   `username` varchar(255),
   `password` varchar(255),
-  `valid` bool
+  `valid` BOOLEAN
 );
 
 ALTER TABLE `todos` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
