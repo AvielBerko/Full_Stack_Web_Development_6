@@ -11,6 +11,14 @@ database_config.create_tables();
 //   city: "city_insertQuery",
 // });
 
+
+setTimeout(() => databaseManagement.insertQuery("users", {
+    username: "test_insertQuery",
+    email: "email_insertQuery",
+    company_name: "company_insertQuery",
+    city: "city_insertQuery",
+  }), 5000);
+
 // databaseManagement.getEntityByColumn("users", "username", "test_insertQuery");
 // databaseManagement.getEntityByColumn("users", "username", "username1");
 

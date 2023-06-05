@@ -1,21 +1,24 @@
 const mysql = require("mysql");
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "123123",
-});
-
 const runQuery = (query, callback) => {
-  con.query(query, function (err, result) {
-    if (err) {
-      console.error(err);
-      callback(err);
-      return;
-    }
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "123123",
+    database: "project_6",
+  });
 
-    console.log(`SQL command ${query} executed successfully`);
-    callback(null, result);
+  con.connect(function (err) {
+    if (err) throw err;
+    con.query(query, function (err, result) {
+      if (err) {
+        console.error(err);
+        callback(err);
+        return;
+      }
+      console.log(`SQL command ${query} executed successfully`);
+      callback(null, result);
+    });
   });
 };
 
@@ -23,7 +26,7 @@ const insertQuery = (table, values) => {
   let query;
   switch (table) {
     case "users":
-      query = `INSERT INTO ${table} (username, email, company_name, city ) VALUES (${values.username}, ${values.email}, ${values.company_name}, ${values.city});`;
+      query = `INSERT INTO ${table} (username, email, company_name, city ) VALUES ('${values.username}', '${values.email}', '${values.company_name}', '${values.city}');`;
       break;
     case "todos":
       query = `INSERT INTO ${table} (user_id, title) VALUES (${values.user_id}, ${values.title});`;

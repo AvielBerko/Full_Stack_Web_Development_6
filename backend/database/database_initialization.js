@@ -46,7 +46,7 @@ const create_database = () =>
     }
   );
 
-const create_tables = () =>
+const create_tables = () =>{
   run_sql_file("./backend/database/tables_configuration.sql", (err, result) => {
     if (err) {
       console.error("Error:", err);
@@ -54,6 +54,9 @@ const create_tables = () =>
       console.log("Query result:", result);
     }
   });
+  con.end();
+}
+
 
 exports.create_database = create_database;
 exports.test_init_connection = test_init_connection;
