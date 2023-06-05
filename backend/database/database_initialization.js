@@ -8,28 +8,21 @@ var con = mysql.createConnection({
 });
 
 function run_sql_file(sql_path, callback) {
-  fs.readFile(sql_path, "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      callback(err);
-      return;
-    }
+  data = fs.readFileSync(sql_path, "utf8");
+  data = data.replace(/(\r\n|\n|\r)/gm, " ");
+  all_queries = data.split(";").slice(0, -1);
+  console.log(all_queries);
 
-    data = data.replace(/(\r\n|\n|\r)/gm, " ");
-    all_queries = data.split(";").slice(0, -1);
-    console.log(all_queries);
+  all_queries.forEach((element) => {
+    con.query(element, function (err, result) {
+      if (err) {
+        console.error(err);
+        callback(err);
+        return;
+      }
 
-    all_queries.forEach((element) => {
-      con.query(element, function (err, result) {
-        if (err) {
-          console.error(err);
-          callback(err);
-          return;
-        }
-
-        console.log(`SQL command ${element} executed successfully`);
-        callback(null, result);
-      });
+      console.log(`SQL command ${element} executed successfully`);
+      callback(null, result);
     });
   });
 }
