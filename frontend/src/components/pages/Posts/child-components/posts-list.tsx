@@ -10,7 +10,7 @@ import User from "../../../../lib/data/dataObjects/User";
 import { useEffect, useState, useMemo } from "react";
 import Post from "../../../../lib/data/dataObjects/Post";
 import PostsItem from "./posts-item";
-import { Nullable } from "../../../../src/types/react.types";
+import { Nullable } from "../../../../types/react.types";
 import { UserSerializer } from "../../../../lib/data/dataObjects/serialization";
 import { SortBy } from "../types";
 

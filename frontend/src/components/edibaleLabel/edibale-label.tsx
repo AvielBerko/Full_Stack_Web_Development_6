@@ -1,5 +1,5 @@
 import { Form, InputGroup } from "react-bootstrap";
-import { StateSetter } from "../../src/types/react.types";
+import { StateSetter, Nullable } from "../../types/react.types";
 import { ComponentType } from "react";
 
 type EdibaleLabelProps = {

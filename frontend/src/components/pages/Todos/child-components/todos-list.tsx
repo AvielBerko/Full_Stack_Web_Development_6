@@ -10,7 +10,7 @@ import User from "../../../../lib/data/dataObjects/User";
 import { useEffect, useReducer, useState } from "react";
 import Todo from "../../../../lib/data/dataObjects/Todo";
 import TodosItem from "./todos-item";
-import { Nullable } from "../../../../src/types/react.types";
+import { Nullable } from "../../../../types/react.types";
 import { UserSerializer } from "../../../../lib/data/dataObjects/serialization";
 import { FilterBy, SortBy } from "../types";
 
