@@ -50,12 +50,12 @@ const insertQuery = (table, values) => {
   });
 };
 
-const getEntityByColumn = (table, columnName, columnValue) => {
-  let query = `SELECT * FROM ${table} WHERE ${columnName} = '${columnValue}'`;
+const getEntityByColumn = (table, columnName, columnValue, callback) => {
+  let query = `SELECT * FROM ${table} WHERE ${columnName} = '${columnValue}' AND valid = TRUE`;
 
   runQuery(query, function (err, result) {
     if (err) throw err;
-    return result;
+    callback(result);
   });
 };
 
