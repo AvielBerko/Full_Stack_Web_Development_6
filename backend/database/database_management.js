@@ -29,16 +29,16 @@ const insertQuery = (table, values) => {
       query = `INSERT INTO ${table} (username, email, company_name, city ) VALUES ('${values.username}', '${values.email}', '${values.company_name}', '${values.city}');`;
       break;
     case "todos":
-      query = `INSERT INTO ${table} (user_id, title) VALUES (${values.user_id}, ${values.title});`;
+      query = `INSERT INTO ${table} (user_id, title) VALUES ('${values.user_id}', '${values.title}');`;
       break;
     case "posts":
-      query = `INSERT INTO ${table} (user_id, title, body) VALUES (${values.user_id}, ${values.title}, ${values.body});`;
+      query = `INSERT INTO ${table} (user_id, title, body) VALUES ('${values.user_id}', '${values.title}', '${values.body}');`;
       break;
     case "comments":
-      query = `INSERT INTO ${table} (post_id, name, email, body) VALUES (${values.post_id}, ${values.name}, ${values.email}, ${values.body});`;
+      query = `INSERT INTO ${table} (post_id, name, email, body) VALUES ('${values.post_id}', '${values.name}', '${values.email}', '${values.body}');`;
       break;
     case "user_passwords":
-      query = `INSERT INTO ${table} (user_id, password) VALUES (${values.user_id}, ${values.password});`;
+      query = `INSERT INTO ${table} (user_id, password) VALUES ('${values.user_id}', '${values.password}');`;
       break;
 
     default:
