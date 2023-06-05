@@ -16,7 +16,7 @@ function run_sql_file(sql_path, callback) {
     }
 
     data = data.replace(/(\r\n|\n|\r)/gm, " ");
-    all_queries = data.split(";").slice(0, -1);;
+    all_queries = data.split(";").slice(0, -1);
     console.log(all_queries);
 
     all_queries.forEach((element) => {
@@ -53,5 +53,15 @@ const create_database = () =>
     }
   );
 
+const create_tables = () =>
+  run_sql_file("./backend/database/tables_configuration.sql", (err, result) => {
+    if (err) {
+      console.error("Error:", err);
+    } else {
+      console.log("Query result:", result);
+    }
+  });
+
 exports.create_database = create_database;
 exports.test_init_connection = test_init_connection;
+exports.create_tables = create_tables;
