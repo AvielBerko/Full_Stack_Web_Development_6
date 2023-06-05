@@ -1,5 +1,5 @@
 import { Company } from "../../../lib/data/dataObjects/User";
-import { StateSetter } from "../../../src/types/react.types";
+import { StateSetter } from "../../../types/react.types";
 import MultiInputGroup,{InputItem} from "../../common/MultiInputGroup/multi-input-group";
 
 
