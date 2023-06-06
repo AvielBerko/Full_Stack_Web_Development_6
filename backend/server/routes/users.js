@@ -1,3 +1,5 @@
+const databaseManagement = require("../../database/database_management.js");
+
 const express = require("express");
 const router = express.Router();
 
@@ -9,8 +11,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:name", (req, res) => {
-  // return user by id
-  res.send(`hello from user with name ${req.params.name}`);
+  data = databaseManagement.getEntityByColumn(
+    "users",
+    "username",
+    req.params.name,
+    (result) => {
+      res.send(result[0]);
+    }
+  );
 });
 
 function logger(req, res, next) {
