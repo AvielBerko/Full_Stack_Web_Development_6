@@ -39,7 +39,7 @@ export async function push<T extends Indexable>(path: string, item: T):Promise<s
   return id
 }
 
-export  async function remove<T extends Indexable>(path: string):Promise<void> {
+export  async function remove(path: string):Promise<void> {
   for (const func of saverFunctions) {
     await func.remove(path);
   }

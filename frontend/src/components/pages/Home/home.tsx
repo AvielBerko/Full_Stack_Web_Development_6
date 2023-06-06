@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSession } from "../../../hooks/use-session-storage/use-session";
 import User from "../../../lib/data/dataObjects/User";
-import { Nullable } from "../../../src/types/react.types";
+import { Nullable } from "../../../types/react.types";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
 
 export default function Home() {

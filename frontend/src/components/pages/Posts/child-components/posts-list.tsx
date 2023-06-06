@@ -10,7 +10,7 @@ import User from "../../../../lib/data/dataObjects/User";
 import { useEffect, useState, useMemo } from "react";
 import Post from "../../../../lib/data/dataObjects/Post";
 import PostsItem from "./posts-item";
-import { Nullable } from "../../../../src/types/react.types";
+import { Nullable } from "../../../../types/react.types";
 import { UserSerializer } from "../../../../lib/data/dataObjects/serialization";
 import { SortBy } from "../types";
 
@@ -83,10 +83,18 @@ export default function PostsList({ sortBy }: PostlistProps) {
     setNewPostTitle("");
   };
 
+  const handlePostDelete = (post: Post) => {
+    if (!post) return;
+    const newPosts = posts.filter((p) => p.id !== post.id);
+    setPosts(newPosts);
+    post.remove();
+  };
+
   const postsDOM = posts.map((post: Post) => {
     return (
       <PostsItem
         post={post}
+        onDeleted={handlePostDelete}
         user={user}
         selectedPost={selectedPost}
         setSelectedPost={setSelectedPost}

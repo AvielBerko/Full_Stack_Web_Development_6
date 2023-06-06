@@ -1,6 +1,6 @@
 import Album from "../../../lib/data/dataObjects/Album";
 import { useEffect, useState } from "react";
-import { Nullable } from "../../../src/types/react.types";
+import { Nullable } from "../../../types/react.types";
 import AlbumsItem from "./child-components/albums-item";
 import { useParams } from "react-router-dom";
 

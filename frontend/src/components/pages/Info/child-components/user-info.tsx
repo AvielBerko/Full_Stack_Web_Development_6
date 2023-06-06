@@ -3,7 +3,7 @@ import User from '../../../../lib/data/dataObjects/User';
 import { useState } from 'react';
 import EdibaleLabel from '../../../edibaleLabel/edibale-label';
 import BlockButton from '../../../common/BlockButton/block-button';
-import { Nullable } from '../../../../src/types/react.types';
+import { Nullable } from '../../../../types/react.types';
 
 type UserItemProps = {
   user: User;

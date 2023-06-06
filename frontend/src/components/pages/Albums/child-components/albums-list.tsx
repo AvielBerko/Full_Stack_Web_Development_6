@@ -4,7 +4,7 @@ import User from "../../../../lib/data/dataObjects/User";
 import { useEffect, useMemo, useState } from "react";
  import Album from "../../../../lib/data/dataObjects/Album";
  import AlbumsItem from "./albums-item";
-import { Nullable } from "../../../../src/types/react.types";
+import { Nullable } from "../../../../types/react.types";
 import { UserSerializer } from "../../../../lib/data/dataObjects/serialization";
 
 export default function AlbumsList() {

@@ -2,7 +2,7 @@ import Input from "../../common/Input/input";
 import BlockButton from "../../common/BlockButton/block-button";
 import { useState } from "react";
 import User, { Address, Company, Geo } from "../../../lib/data/dataObjects/User";
-import { State } from "../../../src/types/react.types";
+import { State } from "../../../types/react.types";
 import { Col, Container, Row, Alert } from "react-bootstrap";
 import AddressEditor from "./address-editor";
 import CompanyEditor from "./company-editor";

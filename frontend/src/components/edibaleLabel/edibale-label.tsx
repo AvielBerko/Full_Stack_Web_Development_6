@@ -1,12 +1,12 @@
 import { Form, InputGroup } from "react-bootstrap";
-import { StateSetter } from "../../src/types/react.types";
+import { StateSetter } from "../../types/react.types";
 import { ComponentType } from "react";
 
 type EdibaleLabelProps = {
   label: string;
   value: string;
   setter: StateSetter<string>;
-  isEditable: boolean;
+  isEditable: Boolean;
   WrapperComponent?: ComponentType<Partial<{ children: any }>>;
 };
 

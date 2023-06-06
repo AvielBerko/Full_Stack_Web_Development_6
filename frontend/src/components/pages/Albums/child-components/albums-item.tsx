@@ -2,7 +2,7 @@ import { ListGroupItem, Card, Button } from "react-bootstrap";
 import Album from "../../../../lib/data/dataObjects/Album";
 import { useEffect, useState } from "react";
 import PhotosList from "./photos-list";
-import { Nullable } from "../../../../src/types/react.types";
+import { Nullable } from "../../../../types/react.types";
 
 type AlbumItemProps = {
   album: Nullable<Album>;

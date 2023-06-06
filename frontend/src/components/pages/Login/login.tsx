@@ -2,11 +2,11 @@ import Input from "../../common/Input/input";
 import { useEffect, useState } from "react";
 import { Container, Col, Row, Alert } from "react-bootstrap";
 import BlockButton from "../../common/BlockButton/block-button";
-import { Nullable, State } from "../../../src/types/react.types";
 import User from "../../../lib/data/dataObjects/User";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "../../../hooks/use-session-storage/use-session";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
+import { Nullable, State } from "../../../types/react.types";
 
 const WRONG_LOGIN = "Wrong username or password.";
 
