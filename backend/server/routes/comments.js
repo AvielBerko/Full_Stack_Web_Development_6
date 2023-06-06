@@ -33,6 +33,18 @@ router.post("/", (req, res) => {
   });
 });
 
+router.put("/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "comments",
+    req.params.id,
+    req.body,
+    (result) => {
+      // res.send(`mange to update comment with id ${req.params.id}`);
+      res.send(req.body);
+    }
+  );
+});
+
 router.delete("/:id", (req, res) => {
   databaseManagement.deleteEntityById("comments", req.params.id, (result) => {
     res.send(`mange to delete comment with id ${req.params.id}`);

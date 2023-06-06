@@ -22,6 +22,18 @@ router.post("/", (req, res) => {
   });
 });
 
+router.put("/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "posts",
+    req.params.id,
+    req.body,
+    (result) => {
+      // res.send(`mange to update post with id ${req.params.id}`);
+      res.send(req.body);
+    }
+  );
+});
+
 router.delete("/:id", (req, res) => {
   databaseManagement.deleteEntityById(
     "posts",
