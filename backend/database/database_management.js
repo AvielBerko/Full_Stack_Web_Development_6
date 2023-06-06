@@ -22,6 +22,15 @@ const runQuery = (query, callback) => {
   });
 };
 
+const getEntityByColumn = (table, columnName, columnValue, callback) => {
+  let query = `SELECT * FROM ${table} WHERE ${columnName} = '${columnValue}' AND valid = TRUE`;
+
+  runQuery(query, function (err, result) {
+    if (err) throw err;
+    callback(result);
+  });
+};
+
 const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
@@ -51,14 +60,36 @@ const insertQuery = (table, values, callback) => {
   });
 };
 
-const getEntityByColumn = (table, columnName, columnValue, callback) => {
-  let query = `SELECT * FROM ${table} WHERE ${columnName} = '${columnValue}' AND valid = TRUE`;
+const deleteEntityById = (table, values, callback) => {
+  let query;
+  switch (table) {
+    case "users":
+      query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
+      break;
+    case "todos":
+      query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
+      break;
+    case "posts":
+      query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
+      break;
+    case "comments":
+      query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
+      break;
+    case "user_passwords":
+      query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
+      break;
 
+
+    default:
+      throw new Error(`cant find ${table} at database`);
+  }
   runQuery(query, function (err, result) {
     if (err) throw err;
+    console.log("DATABASE: " + result.affectedRows + " record(s) deleted");
     callback(result);
   });
 };
 
 exports.insertQuery = insertQuery;
 exports.getEntityByColumn = getEntityByColumn;
+exports.deleteEntityById = deleteEntityById;

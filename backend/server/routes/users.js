@@ -58,6 +58,19 @@ router.post("/", (req, res) => {
   });
 });
 
+router.delete("/:name", (req, res) => {
+  databaseManagement.getEntityByColumn(
+    "users",
+    "username",
+    req.params.name,
+    (result) => {
+      databaseManagement.deleteEntityById("users", result[0].id, (result) => {
+        res.send(`mange to delete user with id ${req.params.name}}`);
+      });
+    }
+  );
+});
+
 function logger(req, res, next) {
   console.log("SERVER", req.originalUrl);
   next();
