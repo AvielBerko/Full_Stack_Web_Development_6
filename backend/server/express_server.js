@@ -18,7 +18,5 @@ app.use("/api/posts", postsRouter);
 app.use("/api/todos", todosRouter);
 app.use("/api/user_passwords", user_passwordsRouter);
 
-
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`SERVER: Listening on port ${port}...`));

@@ -40,7 +40,7 @@ CREATE TABLE `comments` (
   `valid` BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE `user_password` (
+CREATE TABLE `user_passwords` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `userId` integer,
   `password` varchar(255),
@@ -51,7 +51,7 @@ ALTER TABLE `todos` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
 ALTER TABLE `posts` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
-ALTER TABLE `user_password` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+ALTER TABLE `user_passwords` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
 ALTER TABLE `comments` ADD FOREIGN KEY (`postId`) REFERENCES `posts` (`id`);
 
@@ -80,10 +80,10 @@ INSERT INTO comments (postId, name, email, body ) VALUES (3, 'name3', 'email3', 
 INSERT INTO comments (postId, name, email, body ) VALUES (4, 'name4', 'email4', 'body4');
 INSERT INTO comments (postId, name, email, body ) VALUES (5, 'name5', 'email5', 'body5');
 
-INSERT INTO user_password (userId, password ) VALUES (1, 'password1');
-INSERT INTO user_password (userId, password ) VALUES (2, 'password2');
-INSERT INTO user_password (userId, password ) VALUES (3, 'password3');
-INSERT INTO user_password (userId, password ) VALUES (4, 'password4');
-INSERT INTO user_password (userId, password ) VALUES (5, 'password5');
+INSERT INTO user_passwords (userId, password ) VALUES (1, 'password1');
+INSERT INTO user_passwords (userId, password ) VALUES (2, 'password2');
+INSERT INTO user_passwords (userId, password ) VALUES (3, 'password3');
+INSERT INTO user_passwords (userId, password ) VALUES (4, 'password4');
+INSERT INTO user_passwords (userId, password ) VALUES (5, 'password5');
 
 ```

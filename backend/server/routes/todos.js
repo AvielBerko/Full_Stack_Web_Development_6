@@ -18,6 +18,12 @@ router.get("/:id", (req, res) => {
   );
 });
 
+router.post("/", (req, res) => {
+  databaseManagement.insertQuery("todos", req.body, (result) => {
+    res.send(`mange to insert new todos with id ${result.insertId}`);
+  });
+});
+
 function logger(req, res, next) {
   console.log("SERVER", req.originalUrl);
   next();

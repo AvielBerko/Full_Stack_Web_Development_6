@@ -7,13 +7,19 @@ router.use(logger);
 
 router.get("/:id", (req, res) => {
   databaseManagement.getEntityByColumn(
-    "user_password",
+    "user_passwords",
     "userId",
     req.params.id,
     (result) => {
       res.send(result);
     }
   );
+});
+
+router.post("/", (req, res) => {
+  databaseManagement.insertQuery("user_passwords", req.body, (result) => {
+    res.send(`mange to insert new user_passwords with id ${result.insertId}`);
+  });
 });
 
 function logger(req, res, next) {

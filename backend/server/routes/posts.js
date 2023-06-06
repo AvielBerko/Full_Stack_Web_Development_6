@@ -16,6 +16,12 @@ router.get("/:id", (req, res) => {
   );
 });
 
+router.post("/", (req, res) => {
+  databaseManagement.insertQuery("posts", req.body, (result) => {
+    res.send(`mange to insert new post with id ${result.insertId}`);
+  });
+});
+
 function logger(req, res, next) {
   console.log("SERVER", req.originalUrl);
   next();

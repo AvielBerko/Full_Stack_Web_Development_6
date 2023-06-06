@@ -27,6 +27,12 @@ router.get("/:id", (req, res) => {
   );
 });
 
+router.post("/", (req, res) => {
+  databaseManagement.insertQuery("comments", req.body, (result) => {
+    res.send(`mange to insert new comment with id ${result.insertId}`);
+  });
+});
+
 function logger(req, res, next) {
   console.log("SERVER", req.originalUrl);
   next();
