@@ -22,6 +22,18 @@ router.post("/", (req, res) => {
   });
 });
 
+router.put("/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "user_passwords",
+    req.params.id,
+    req.body,
+    (result) => {
+      // res.send(`mange to update user_passwords with id ${req.params.id}`);
+      res.send(req.body);
+    }
+  );
+});
+
 router.delete("/:id", (req, res) => {
   databaseManagement.deleteEntityById(
     "user_passwords",
