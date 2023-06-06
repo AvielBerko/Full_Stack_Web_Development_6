@@ -21,8 +21,22 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("todos", req.body, (result) => {
     res.send(`mange to insert new todos with id ${result.insertId}`);
+    // res.send(req.body);
   });
 });
+
+router.put("/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "todos",
+    req.params.id,
+    req.body,
+    (result) => {
+      // res.send(`mange to update todos with id ${req.params.id}`);
+      res.send(req.body);
+    }
+  );
+});
+
 
 router.delete("/:id", (req, res) => {
   databaseManagement.deleteEntityById(

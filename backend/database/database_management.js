@@ -90,6 +90,37 @@ const deleteEntityById = (table, values, callback) => {
   });
 };
 
+const updateEntityById = (table, id, values, callback) => {
+  let query;
+  switch (table) {
+    case "users":
+      query = `UPDATE ${table} SET username = '${values.username}', email = '${values.email}', company_name = '${values.company_name}', city = '${values.city}' WHERE id = ${id};`;
+      break;
+    case "todos":
+      query = `UPDATE ${table} SET userId = '${values.user_id}', title = '${values.title}', completed = '${values.completed}' WHERE id = ${id};`;
+      break;
+    case "posts":
+      query = `UPDATE ${table} SET userId = '${values.user_id}', title = '${values.title}', body = '${values.body}' WHERE id = ${id};`;
+      break;
+    case "comments":
+      query = `UPDATE ${table} SET postId = '${values.post_id}', name = '${values.name}', email = '${values.email}', body = '${values.body}' WHERE id = ${id};`;
+      break;
+    case "user_passwords":
+      query = `UPDATE ${table} SET userId = '${values.user_id}', password = '${values.password}' WHERE id = ${id};`;
+      break;
+
+    default:
+      throw new Error(`cant find ${table} at database`);
+  }
+  runQuery(query, function (err, result) {
+    if (err) throw err;
+    console.log("DATABASE: " + result.affectedRows + " record(s) updated");
+    callback(result);
+  });
+};
+
+
 exports.insertQuery = insertQuery;
 exports.getEntityByColumn = getEntityByColumn;
 exports.deleteEntityById = deleteEntityById;
+exports.updateEntityById = updateEntityById;
