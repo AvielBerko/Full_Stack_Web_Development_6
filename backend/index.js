@@ -6,12 +6,18 @@ database_config.create_tables();
 
 setTimeout(
   () =>
-    databaseManagement.insertQuery("users", {
-      username: "test_insertQuery",
-      email: "email_insertQuery",
-      company_name: "company_insertQuery",
-      city: "city_insertQuery",
-    }),
+    databaseManagement.insertQuery(
+      "users",
+      {
+        username: "test_insertQuery",
+        email: "email_insertQuery",
+        company_name: "company_insertQuery",
+        city: "city_insertQuery",
+      },
+      (result) => {
+        console.log(result);
+      }
+    ),
   1000
 );
 

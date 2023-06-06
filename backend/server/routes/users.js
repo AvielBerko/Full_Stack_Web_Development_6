@@ -52,6 +52,12 @@ router.get("/:name", (req, res) => {
   );
 });
 
+router.post("/", (req, res) => {
+  databaseManagement.insertQuery("users", req.body, (result) => {
+    res.send(`mange to insert new user with id ${result.insertId}`);
+  });
+});
+
 function logger(req, res, next) {
   console.log("SERVER", req.originalUrl);
   next();

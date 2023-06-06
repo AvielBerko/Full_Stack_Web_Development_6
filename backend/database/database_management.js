@@ -22,7 +22,7 @@ const runQuery = (query, callback) => {
   });
 };
 
-const insertQuery = (table, values) => {
+const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
     case "users":
@@ -47,6 +47,7 @@ const insertQuery = (table, values) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     console.log("DATABASE: 1 record inserted, ID: " + result.insertId);
+    callback(result);
   });
 };
 
