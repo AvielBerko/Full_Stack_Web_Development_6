@@ -16,7 +16,7 @@ const runQuery = (query, callback) => {
         callback(err);
         return;
       }
-      console.log(`SQL command ${query} executed successfully`);
+      console.log(`DATABASE: SQL command ${query} executed successfully`);
       callback(null, result);
     });
   });
@@ -46,7 +46,7 @@ const insertQuery = (table, values) => {
   }
   runQuery(query, function (err, result) {
     if (err) throw err;
-    console.log("1 record inserted, ID: " + result.insertId);
+    console.log("DATABASE: 1 record inserted, ID: " + result.insertId);
   });
 };
 

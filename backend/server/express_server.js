@@ -21,4 +21,4 @@ app.use("/api/user_passwords", user_passwordsRouter);
 
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(port, () => console.log(`SERVER: Listening on port ${port}...`));

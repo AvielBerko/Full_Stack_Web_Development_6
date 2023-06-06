@@ -11,17 +11,17 @@ function run_sql_file(sql_path, callback) {
   data = fs.readFileSync(sql_path, "utf8");
   data = data.replace(/(\r\n|\n|\r)/gm, " ");
   all_queries = data.split(";").slice(0, -1);
+  console.log("DATABASE: all_queries :");
   console.log(all_queries);
 
   all_queries.forEach((element) => {
     con.query(element, function (err, result) {
       if (err) {
-        console.error(err);
         callback(err);
         return;
       }
 
-      console.log(`SQL command ${element} executed successfully`);
+      console.log(`DATABASE: SQL command ${element} executed successfully`);
       callback(null, result);
     });
   });
@@ -30,7 +30,7 @@ function run_sql_file(sql_path, callback) {
 const test_init_connection = () => {
   con.connect(function (err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("DATABASE: Connected!");
   });
 };
 
@@ -39,9 +39,9 @@ const create_database = () =>
     "./backend/database/database_configuration.sql",
     (err, result) => {
       if (err) {
-        console.error("Error:", err);
+        console.error("DATABASE: Error:", err);
       } else {
-        console.log("Query result:", result);
+        console.log("DATABASE: Query result:", result);
       }
     }
   );
@@ -49,9 +49,9 @@ const create_database = () =>
 const create_tables = () =>{
   run_sql_file("./backend/database/tables_configuration.sql", (err, result) => {
     if (err) {
-      console.error("Error:", err);
+      console.error("DATABASE: Error:", err);
     } else {
-      console.log("Query result:", result);
+      console.log("DATABASE: Query result:", result);
     }
   });
   con.end();

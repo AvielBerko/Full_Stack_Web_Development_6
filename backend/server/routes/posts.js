@@ -14,7 +14,7 @@ router.get("/:id", (req, res) => {
 });
 
 function logger(req, res, next) {
-  console.log(req.originalUrl);
+  console.log("SERVER", req.originalUrl);
   next();
 }
 
