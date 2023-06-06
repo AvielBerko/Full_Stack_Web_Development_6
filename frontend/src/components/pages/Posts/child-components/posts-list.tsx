@@ -83,10 +83,18 @@ export default function PostsList({ sortBy }: PostlistProps) {
     setNewPostTitle("");
   };
 
+  const handlePostDelete = (post: Post) => {
+    if (!post) return;
+    const newPosts = posts.filter((p) => p.id !== post.id);
+    setPosts(newPosts);
+    post.remove();
+  };
+
   const postsDOM = posts.map((post: Post) => {
     return (
       <PostsItem
         post={post}
+        onDeleted={handlePostDelete}
         user={user}
         selectedPost={selectedPost}
         setSelectedPost={setSelectedPost}

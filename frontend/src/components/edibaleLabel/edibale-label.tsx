@@ -6,7 +6,7 @@ type EdibaleLabelProps = {
   label: string;
   value: string;
   setter: StateSetter<string>;
-  isEditable: boolean;
+  isEditable: Boolean;
   WrapperComponent?: ComponentType<Partial<{ children: any }>>;
 };
 

@@ -1,7 +1,7 @@
 import Indexable from "../loders/interfaces/Indexable";
 import { find } from "../loders/mainLoader/getLoader";
 import { getOne } from "../loders/mainLoader/getLoader";
-import { push, save } from "../loders/mainLoader/saveLoder";
+import { push, remove, save } from "../loders/mainLoader/saveLoder";
 
 export type DataObjectType = Partial<{
   id: string;
@@ -69,11 +69,14 @@ export default class DataObject implements Indexable {
 
   public async save(): Promise<void> {
     await save(this.fullPath, this.toUnknowObject() as Indexable);
-
   }
 
   public async push(): Promise<void> {
     const data = await push(this.path, this.toUnknowObject() as Indexable);
     this.id = data;
+  }
+
+  public async remove(): Promise<void> {
+    await remove(this.fullPath);
   }
 }
