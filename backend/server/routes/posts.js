@@ -1,16 +1,19 @@
+const databaseManagement = require("../../database/database_management.js");
+
 const express = require("express");
 const router = express.Router();
 
 router.use(logger);
 
-router.get("/", (req, res) => {
-  // return all posts
-  res.send("hello from posts");
-});
-
 router.get("/:id", (req, res) => {
-  // return post by id
-  res.send(`hello from post with id ${req.params.id}`);
+  databaseManagement.getEntityByColumn(
+    "posts",
+    "userId",
+    req.params.id,
+    (result) => {
+      res.send(result);
+    }
+  );
 });
 
 function logger(req, res, next) {

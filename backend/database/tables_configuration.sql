@@ -63,7 +63,7 @@ INSERT INTO users (username, email, company_name, city ) VALUES ('username4', 'm
 INSERT INTO users (username, email, company_name, city ) VALUES ('username5', 'my_mail5', 'my_company5', 'my_city5');
 
 INSERT INTO todos (userId, title ) VALUES (1, 'title1');
-INSERT INTO todos (userId, title ) VALUES (2, 'title2');
+INSERT INTO todos (userId, title ) VALUES (1, 'title2');
 INSERT INTO todos (userId, title ) VALUES (3, 'title3');
 INSERT INTO todos (userId, title ) VALUES (4, 'title4');
 INSERT INTO todos (userId, title ) VALUES (5, 'title5');

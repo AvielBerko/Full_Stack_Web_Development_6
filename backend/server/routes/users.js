@@ -5,13 +5,8 @@ const router = express.Router();
 
 router.use(logger);
 
-router.get("/", (req, res) => {
-  // return all users
-  res.send("hello from users");
-});
-
 router.get("/:name", (req, res) => {
-  data = databaseManagement.getEntityByColumn(
+  databaseManagement.getEntityByColumn(
     "users",
     "username",
     req.params.name,
