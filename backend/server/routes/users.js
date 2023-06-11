@@ -61,23 +61,34 @@ router.post("/", (req, res) => {
   });
 });
 
-router.put("/:name", (req, res) => {
-  databaseManagement.getEntityByColumn(
-    "users",
-    "username",
-    req.params.name,
+router.put("/:userID/todos/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "todos",
+    req.params.id,
+    req.body,
     (result) => {
-      databaseManagement.updateEntityById(
-        "users",
-        result[0].id,
-        req.body,
-        (result) => {
-          res.send(`mange to update user with id ${req.params.name}`);
-        }
-      );
+      res.send(`mange to update todo with id ${req.params.id}`);
     }
   );
 });
+
+// router.put("/:name", (req, res) => {
+//   databaseManagement.getEntityByColumn(
+//     "users",
+//     "username",
+//     req.params.name,
+//     (result) => {
+//       databaseManagement.updateEntityById(
+//         "users",
+//         result[0].id,
+//         req.body,
+//         (result) => {
+//           res.send(`mange to update user with id ${req.params.name}`);
+//         }
+//       );
+//     }
+//   );
+// });
 
 router.delete("/:name", (req, res) => {
   databaseManagement.getEntityByColumn(

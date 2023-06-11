@@ -127,7 +127,7 @@ const updateEntityById = (table, id, values, callback) => {
       query = `UPDATE ${table} SET username = '${values.username}', email = '${values.email}', company_name = '${values.company_name}', city = '${values.city}' WHERE id = ${id};`;
       break;
     case "todos":
-      query = `UPDATE ${table} SET userId = '${values.user_id}', title = '${values.title}', completed = '${values.completed}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET userId = '${values.userId}', title = '${values.title}', completed = '${Number(values.completed)}' WHERE id = ${id};`;
       break;
     case "posts":
       query = `UPDATE ${table} SET userId = '${values.user_id}', title = '${values.title}', body = '${values.body}' WHERE id = ${id};`;
@@ -145,7 +145,7 @@ const updateEntityById = (table, id, values, callback) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     console.log("DATABASE: " + result.affectedRows + " record(s) updated");
-    removeValidColumn(result);
+    // removeValidColumn(result);
     callback(result);
   });
 };
