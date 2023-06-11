@@ -5,38 +5,24 @@ const router = express.Router();
 
 router.use(logger);
 
-router.get("/:name/todos", (req, res) => {
+router.get("/:id/todos", (req, res) => {
   databaseManagement.getEntityByColumn(
-    "users",
-    "username",
-    req.params.name,
+    "todos",
+    "userId",
+    req.params.id,
     (result) => {
-      databaseManagement.getEntityByColumn(
-        "todos",
-        "userId",
-        result[0].id.toString(),
-        (result) => {
-          res.send(result);
-        }
-      );
+      res.send(result);
     }
   );
 });
 
-router.get("/:name/posts", (req, res) => {
+router.get("/:id/posts", (req, res) => {
   databaseManagement.getEntityByColumn(
-    "users",
-    "username",
-    req.params.name,
+    "posts",
+    "userId",
+    req.params.id,
     (result) => {
-      databaseManagement.getEntityByColumn(
-        "posts",
-        "userId",
-        result[0].id,
-        (result) => {
-          res.send(result);
-        }
-      );
+      res.send(result);
     }
   );
 });

@@ -17,6 +17,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  // use this function for debugging
+  // if you want to insert post with userId at the body
   databaseManagement.insertQuery("posts", req.body, (result) => {
     res.send(`mange to insert new post with id ${result.insertId}`);
   });
