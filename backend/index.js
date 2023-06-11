@@ -13,6 +13,7 @@ setTimeout(
         email: "email_insertQuery",
         company_name: "company_insertQuery",
         city: "city_insertQuery",
+        password: "password_insertQuery",
       },
       (result) => {
         console.log(result);

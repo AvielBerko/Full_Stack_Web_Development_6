@@ -1,11 +1,20 @@
 const mysql = require("mysql");
 
+function removeValidColumn(result) {
+  result.forEach((element) => {
+    if (element.valid) {
+      delete element["valid"];
+    }
+  });
+}
+
 const runQuery = (query, callback) => {
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "123123",
     database: "project_6",
+    multipleStatements: true
   });
 
   con.connect(function (err) {
@@ -27,6 +36,7 @@ const getEntityByColumn = (table, columnName, columnValue, callback) => {
 
   runQuery(query, function (err, result) {
     if (err) throw err;
+    removeValidColumn(result);
     callback(result);
   });
 };
@@ -46,6 +56,7 @@ const getEntityByJoin = (
 
   runQuery(query, function (err, result) {
     if (err) throw err;
+    removeValidColumn(result);
     callback(result);
   });
 };
@@ -54,7 +65,7 @@ const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
     case "users":
-      query = `INSERT INTO ${table} (username, email, company_name, city ) VALUES ('${values.username}', '${values.email}', '${values.company_name}', '${values.city}');`;
+      query = `INSERT INTO ${table} (username, email, company_name, city) VALUES ('${values.username}', '${values.email}', '${values.company_name}', '${values.city}'); INSERT INTO user_passwords (userId, password) VALUES (LAST_INSERT_ID(), '${values.password}');`;
       break;
     case "todos":
       query = `INSERT INTO ${table} (userId, title) VALUES ('${values.user_id}', '${values.title}');`;
@@ -104,6 +115,7 @@ const deleteEntityById = (table, values, callback) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     console.log("DATABASE: " + result.affectedRows + " record(s) deleted");
+    removeValidColumn(result);
     callback(result);
   });
 };
@@ -133,6 +145,7 @@ const updateEntityById = (table, id, values, callback) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     console.log("DATABASE: " + result.affectedRows + " record(s) updated");
+    removeValidColumn(result);
     callback(result);
   });
 };
@@ -140,5 +153,5 @@ const updateEntityById = (table, id, values, callback) => {
 exports.insertQuery = insertQuery;
 exports.getEntityByColumn = getEntityByColumn;
 exports.deleteEntityById = deleteEntityById;
-exports.updateEntityById = updateEntityById;  
+exports.updateEntityById = updateEntityById;
 exports.getEntityByJoin = getEntityByJoin;
