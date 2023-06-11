@@ -31,6 +31,25 @@ const getEntityByColumn = (table, columnName, columnValue, callback) => {
   });
 };
 
+const getEntityByJoin = (
+  table1,
+  table2,
+  column1,
+  column2,
+  targetColumn1,
+  columnValue1,
+  targetColumn2,
+  columnValue2,
+  callback
+) => {
+  let query = `SELECT * FROM ${table1} INNER JOIN ${table2} ON ${table1}.${column1} = ${table2}.${column2} WHERE ${table1}.${targetColumn1} = '${columnValue1}' AND ${table2}.${targetColumn2} = '${columnValue2}' AND ${table1}.valid = TRUE AND ${table2}.valid = TRUE`;
+
+  runQuery(query, function (err, result) {
+    if (err) throw err;
+    callback(result);
+  });
+};
+
 const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
@@ -79,7 +98,6 @@ const deleteEntityById = (table, values, callback) => {
       query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
       break;
 
-
     default:
       throw new Error(`cant find ${table} at database`);
   }
@@ -119,8 +137,8 @@ const updateEntityById = (table, id, values, callback) => {
   });
 };
 
-
 exports.insertQuery = insertQuery;
 exports.getEntityByColumn = getEntityByColumn;
 exports.deleteEntityById = deleteEntityById;
-exports.updateEntityById = updateEntityById;
+exports.updateEntityById = updateEntityById;  
+exports.getEntityByJoin = getEntityByJoin;

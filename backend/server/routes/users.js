@@ -52,6 +52,23 @@ router.get("/:name", (req, res) => {
   );
 });
 
+router.get("/", (req, res) => {
+  databaseManagement.getEntityByJoin(
+    "users",
+    "user_passwords",
+    "id",
+    "userId",
+    "username",
+    req.query.username,
+    "password",
+    req.query.password,
+
+    (result) => {
+      res.send(result);
+    }
+  );
+});
+
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
     res.send(`mange to insert new user with id ${result.insertId}`);
