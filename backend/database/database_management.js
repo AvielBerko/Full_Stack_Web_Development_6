@@ -14,7 +14,7 @@ const runQuery = (query, callback) => {
     user: "root",
     password: "123123",
     database: "project_6",
-    multipleStatements: true
+    multipleStatements: true,
   });
 
   con.connect(function (err) {
@@ -85,7 +85,7 @@ const insertQuery = (table, values, callback) => {
   }
   runQuery(query, function (err, result) {
     if (err) throw err;
-    console.log("DATABASE: 1 record inserted, ID: " + result.insertId);
+    console.log("DATABASE: 1 record inserted, ID: " + result[0].insertId);
     callback(result);
   });
 };

@@ -71,7 +71,7 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
-    res.send(`mange to insert new user with id ${result.insertId}`);
+    res.send(`mange to insert new user with id ${result[0].insertId}`);
   });
 });
 
