@@ -115,7 +115,6 @@ const deleteEntityById = (table, values, callback) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     console.log("DATABASE: " + result.affectedRows + " record(s) deleted");
-    removeValidColumn(result);
     callback(result);
   });
 };
@@ -145,7 +144,6 @@ const updateEntityById = (table, id, values, callback) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     console.log("DATABASE: " + result.affectedRows + " record(s) updated");
-    // removeValidColumn(result);
     callback(result);
   });
 };

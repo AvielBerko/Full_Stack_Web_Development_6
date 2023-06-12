@@ -61,6 +61,12 @@ router.post("/", (req, res) => {
   });
 });
 
+router.post("/:id/posts", (req, res) => {
+  databaseManagement.insertQuery("posts", req.body, (result) => {
+    res.send(`mange to insert new todo with id ${result[0].insertId}`);
+  });
+});
+
 router.put("/:userID/todos/:id", (req, res) => {
   databaseManagement.updateEntityById(
     "todos",
@@ -72,23 +78,16 @@ router.put("/:userID/todos/:id", (req, res) => {
   );
 });
 
-// router.put("/:name", (req, res) => {
-//   databaseManagement.getEntityByColumn(
-//     "users",
-//     "username",
-//     req.params.name,
-//     (result) => {
-//       databaseManagement.updateEntityById(
-//         "users",
-//         result[0].id,
-//         req.body,
-//         (result) => {
-//           res.send(`mange to update user with id ${req.params.name}`);
-//         }
-//       );
-//     }
-//   );
-// });
+router.put("/:userID/posts/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "posts",
+    req.params.id,
+    req.body,
+    (result) => {
+      res.send(`mange to update post with id ${req.params.id}`);
+    }
+  );
+});
 
 router.delete("/:name", (req, res) => {
   databaseManagement.getEntityByColumn(
