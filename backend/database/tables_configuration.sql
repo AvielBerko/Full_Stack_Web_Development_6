@@ -85,5 +85,3 @@ INSERT INTO user_passwords (userId, password ) VALUES (2, 'password2');
 INSERT INTO user_passwords (userId, password ) VALUES (3, 'password3');
 INSERT INTO user_passwords (userId, password ) VALUES (4, 'password4');
 INSERT INTO user_passwords (userId, password ) VALUES (5, 'password5');
-
-```
