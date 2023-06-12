@@ -27,13 +27,13 @@ router.get("/:id/posts", (req, res) => {
   );
 });
 
-router.get("/:name", (req, res) => {
+router.get("/:id", (req, res) => {
   databaseManagement.getEntityByColumn(
     "users",
-    "username",
-    req.params.name,
+    "id",
+    req.params.id,
     (result) => {
-      res.send(result[0]);
+      res.send(result);
     }
   );
 });
@@ -57,7 +57,16 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
-    res.send(`mange to insert new user with id ${result[0].insertId}`);
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "users",
+      "id",
+      result[0].insertId,
+      (result) => {
+        res.send(result);
+      }
+    );
+    console.log(`mange to insert new user with id ${result[0].insertId}`);
   });
 });
 
