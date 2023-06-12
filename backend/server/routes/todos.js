@@ -5,8 +5,6 @@ const router = express.Router();
 
 router.use(logger);
 
-
-
 router.get("/:id", (req, res) => {
   databaseManagement.getEntityByColumn(
     "todos",
@@ -20,8 +18,16 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("todos", req.body, (result) => {
-    res.send(`mange to insert new todos with id ${result.insertId}`);
-    // res.send(req.body);
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "todos",
+      "id",
+      result.insertId,
+      (result) => {
+        res.send(result);
+      }
+    );
+    console.log(`SERVER: mange to insert new todos with id ${result.insertId}`);
   });
 });
 
@@ -37,15 +43,10 @@ router.put("/:id", (req, res) => {
   );
 });
 
-
 router.delete("/:id", (req, res) => {
-  databaseManagement.deleteEntityById(
-    "todos",
-    req.params.id,
-    (result) => {
-      res.send(`mange to delete todos with id ${req.params.id}`);
-    }
-  );
+  databaseManagement.deleteEntityById("todos", req.params.id, (result) => {
+    res.send(`mange to delete todos with id ${req.params.id}`);
+  });
 });
 
 function logger(req, res, next) {

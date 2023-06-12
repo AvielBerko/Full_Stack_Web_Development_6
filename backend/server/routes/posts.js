@@ -17,10 +17,19 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  // use this function for debugging
-  // if you want to insert post with userId at the body
+  // use this function if you want to insert post with userId at the body
+
   databaseManagement.insertQuery("posts", req.body, (result) => {
-    res.send(`mange to insert new post with id ${result.insertId}`);
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "posts",
+      "id",
+      result.insertId,
+      (result) => {
+        res.send(result);
+      }
+    );
+    console.log(`SERVER: mange to insert new post with id ${result.insertId}`);
   });
 });
 
@@ -37,15 +46,10 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  databaseManagement.deleteEntityById(
-    "posts",
-    req.params.id,
-    (result) => {
-      res.send(`mange to delete post with id ${req.params.id}`);
-    }
-  );
+  databaseManagement.deleteEntityById("posts", req.params.id, (result) => {
+    res.send(`mange to delete post with id ${req.params.id}`);
+  });
 });
-
 
 function logger(req, res, next) {
   console.log("SERVER", req.originalUrl);

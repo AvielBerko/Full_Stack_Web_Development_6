@@ -66,13 +66,22 @@ router.post("/", (req, res) => {
         res.send(result);
       }
     );
-    console.log(`mange to insert new user with id ${result[0].insertId}`);
+    console.log(`SERVER: mange to insert new user with id ${result[0].insertId}`);
   });
 });
 
 router.post("/:id/posts", (req, res) => {
   databaseManagement.insertQuery("posts", req.body, (result) => {
-    res.send(`mange to insert new todo with id ${result[0].insertId}`);
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "posts",
+      "id",
+      result.insertId,
+      (result) => {
+        res.send(result);
+      }
+      );
+      console.log(`mange to insert new todo with id ${result.insertId}`);
   });
 });
 

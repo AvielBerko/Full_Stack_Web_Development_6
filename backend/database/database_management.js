@@ -85,8 +85,8 @@ const insertQuery = (table, values, callback) => {
   }
   runQuery(query, function (err, result) {
     if (err) throw err;
-    console.log("DATABASE: 1 record inserted, ID: " + result[0].insertId);
     callback(result);
+    console.log("DATABASE: 1 record inserted");
   });
 };
 
