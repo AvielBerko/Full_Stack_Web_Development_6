@@ -1,4 +1,4 @@
-import { registerSavers } from "../mainLoader/saveLoder";
+import { registerSavers } from "../mainLoader/saveLoader";
 import Indexable from "../interfaces/Indexable";
 import { JSON_PLACEHOLDER_URL } from "./env";
 
