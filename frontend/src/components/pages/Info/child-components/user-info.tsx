@@ -38,8 +38,6 @@ const UserInfo = ({ user, setUser }: UserItemProps) => {
 
 
   const onSubmit = () => {
-    const newAddress = { city: cityValue };
-    const newCompany = { name: companyNameValue };
     const newUser = new User({
       id,
       username: usernameValue,
