@@ -4,63 +4,33 @@ import DataObject, { DataObjectType } from "./DataObject";
 import Todo from "./Todo";
 import Post from "./Post";
 
-export type Address = Partial<{
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-  geo: Geo;
-}>;
-
-export type Geo = Partial<{
-  lat: string;
-  lng: string;
-}>;
-
-export type Company = Partial<{
-  name: string;
-  catchPhrase: string;
-  bs: string;
-}>;
 
 export type UserObjectType = Partial<
   DataObjectType & {
-    name: string;
     username: string;
-    address: Address;
-    phone: string;
-    website: string;
-    company: Company;
+    city: string;
+    companyName: string;
     email: string;
   }
 >;
 
 export default class User extends DataObject {
-  protected _name?: string;
   protected _username?: string;
-  protected _address?: Address;
-  protected _phone?: string;
-  protected _website?: string;
-  protected _company?: Company;
+  protected _city?: string;
+  protected _companyName?: string;
   protected _email?: string;
 
   constructor({
     id,
-    name,
     username,
-    address,
-    phone,
-    website,
-    company,
+    city,
+    companyName,
     email,
   }: UserObjectType) {
     super({ id });
-    this._name = name;
     this._username = username;
-    this._address = address;
-    this._phone = phone;
-    this._website = website;
-    this._company = company;
+    this._city = city;
+    this._companyName = companyName;
     this._email = email;
   }
 
@@ -68,14 +38,6 @@ export default class User extends DataObject {
 
   override get path(): string {
     return "users";
-  }
-
-  get name(): string | undefined {
-    return this._name;
-  }
-
-  set name(name: string | undefined) {
-    this._name = name;
   }
 
   get username(): string | undefined {
@@ -86,36 +48,20 @@ export default class User extends DataObject {
     this._username = username;
   }
 
-  get address(): Address | undefined {
-    return this._address;
+  get city(): string | undefined {
+    return this._city;
   }
 
-  set address(address: Address | undefined) {
-    this._address = address;
+  set city(city: string | undefined) {
+    this._city = city;
   }
 
-  get phone(): string | undefined {
-    return this._phone;
+  get companyName(): string | undefined {
+    return this._companyName;
   }
 
-  set phone(phone: string | undefined) {
-    this._phone = phone;
-  }
-
-  get website(): string | undefined {
-    return this._website;
-  }
-
-  set website(website: string | undefined) {
-    this._website = website;
-  }
-
-  get company(): Company | undefined {
-    return this._company;
-  }
-
-  set company(company: Company | undefined) {
-    this._company = company;
+  set companyName(companyName: string | undefined) {
+    this._companyName = companyName;
   }
 
   get email(): string | undefined {
@@ -129,12 +75,9 @@ export default class User extends DataObject {
   public override toUnknowObject(): unknown {
     return {
       ...(super.toUnknowObject() as Object),
-      name: this._name,
       username: this._username,
-      address: this._address,
-      phone: this._phone,
-      website: this._website,
-      company: this._company,
+      city: this._city,
+      companyName: this._companyName,
       email: this._email,
     };
   }
@@ -142,12 +85,9 @@ export default class User extends DataObject {
   public override fromUnknowObject(obj: unknown): void {
     super.fromUnknowObject(obj);
     const objTyped = obj as UserObjectType;
-    this._name = objTyped.name;
     this._username = objTyped.username;
-    this._address = objTyped.address;
-    this._phone = objTyped.phone;
-    this._website = objTyped.website;
-    this._company = objTyped.company;
+    this._city = objTyped.city;
+    this._companyName = objTyped.companyName;
     this._email = objTyped.email;
   }
 

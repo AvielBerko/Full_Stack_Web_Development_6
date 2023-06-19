@@ -1,25 +1,20 @@
 import Input from "../../common/Input/input";
 import BlockButton from "../../common/BlockButton/block-button";
 import { useState } from "react";
-import User, { Address, Company, Geo } from "../../../lib/data/dataObjects/User";
-import { State } from "../../../types/react.types";
+import User from "../../../lib/data/dataObjects/User";
 import { Col, Container, Row, Alert } from "react-bootstrap";
-import AddressEditor from "./address-editor";
-import CompanyEditor from "./company-editor";
 import { useSession } from "../../../hooks/use-session-storage/use-session";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
 import { useNavigate } from "react-router-dom";
+import UserPassword from "../../../lib/data/dataObjects/UserPassword";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [userName, setUserName] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress]: State<Address> = useState({});
-  const [website, setWebsite] = useState("");
-  const [company, setCompany]: State<Company> = useState({});
+  const [username, setUsername] = useState("");
+  const [city, setCity] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [alert, setAlert] = useState("");
 
   const navigate = useNavigate();
@@ -33,9 +28,7 @@ export default function SignUp() {
   const validateForm = () => {
     // Add your validation logic here
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^\d{4}$/;
-    const phoneNumberRegex = /^0[1-9]\d{7,8}$/;
-    const zipCodeRegex = /^\d{5}$/;
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     const englishRegex = /^[A-Za-z0-9\s]+$/;
     const userNameMaxLength = 16;
 
@@ -52,7 +45,7 @@ export default function SignUp() {
     }
 
     if (!passwordRegex.test(password)) {
-      return "Password must be a 4-digit number.";
+      return "Password must contain a letter, a number, a special character, and be between 6 and 16 characters long.";
     }
 
     if (!passwordConfirm) {
@@ -63,87 +56,31 @@ export default function SignUp() {
       return "Password and Confirm Password must match.";
     }
 
-    if (!userName) {
-      return "User Name is required.";
+    if (!username) {
+      return "Username is required.";
     }
 
-    if (userName.length > userNameMaxLength) {
-      return "User Name cannot exceed 16 characters.";
+    if (username.length > userNameMaxLength) {
+      return "Username cannot exceed 16 characters.";
     }
 
-    if (!englishRegex.test(userName)) {
-      return "User Name can only contain English letters and numbers.";
+    if (!englishRegex.test(username)) {
+      return "Username can only contain English letters and numbers.";
     }
 
-    if (!fullName) {
-      return "Full Name is required.";
-    }
 
-    if (!fullName.includes(" ")) {
-      return "Full Name must contain at least two words.";
-    }
-
-    if (!phoneNumber) {
-      return "Phone Number is required.";
-    }
-
-    if (!phoneNumberRegex.test(phoneNumber)) {
-      return "Phone Number is not in a valid format.";
-    }
-
-    if (!address.street) {
-      return "Street is required.";
-    }
-
-    if (!address.suite) {
-      return "Suite is required.";
-    }
-
-    if (!address.city) {
+    if (!city) {
       return "City is required.";
     }
 
-    if (!address.zipcode) {
-      return "Zip Code is required.";
-    }
-
-    if (!zipCodeRegex.test(address.zipcode)) {
-      return "Zip Code is not valid.";
-    }
-
-    if (!website) {
-      return "Website is required.";
-    }
-
-    try {
-      new URL(`https://${website}`);
-    } catch {
-      return "Website is not valid.";
-    }
-
-    if (!company.name) {
+    if (!companyName) {
       return "Company name is required.";
     }
 
-    if (!englishRegex.test(company.name)) {
+    if (!englishRegex.test(companyName)) {
       return "Company name can only contain English letters and numbers.";
     }
 
-    if (!company.catchPhrase) {
-      return "Catch Phrase is required.";
-    }
-
-    if (!englishRegex.test(company.catchPhrase)) {
-      return "Catch Phrase can only contain English letters and numbers.";
-    }
-
-    if (!company.bs) {
-      return "Business slogan is required.";
-    }
-
-    if (!englishRegex.test(company.bs)) {
-      return "Business slogan can only contain English letters and numbers.";
-    }
 
     return ""; // Empty string indicates the form is valid
   };
@@ -154,33 +91,30 @@ export default function SignUp() {
       setAlert(errorMessage);
     } else {
       const checkUser = new User({});
-      checkUser.first({ username:userName }).then(() => {
+      checkUser.first({ username }).then(() => {
         if (checkUser.id) {
-          setAlert("User Name already exists.");
+          setAlert("Username already exists.");
           return;
         }
-        const geo: Geo = {
-          lat: password,
-          lng: password,
-        };
-        const userAddress: Address = { ...address, geo };
-        setAddress(userAddress);
         const newUser = new User({
-          username: userName,
-          address:userAddress,
-          name: fullName,
-          company,
-          phone: phoneNumber,
-          website,
+          username: username,
+          city,
+          companyName,
           email,
         });
-        newUser.push().then(() => {
+        const newUserPassword = new UserPassword({
+          username,
+          password,
+        });
+        newUserPassword.push().then(() => {
+          newUser.push().then(() => {
             setAuth(newUser);
             navigate("/home");
+          });
         });
       });
-    }
-  };
+    };
+  }
 
   const closeAlert = () => {
     setAlert("");
@@ -207,9 +141,9 @@ export default function SignUp() {
       <Row>
         <Col>
           <Input
-            placeholder="User Name"
-            value={userName}
-            setter={setUserName}
+            placeholder="Username"
+            value={username}
+            setter={setUsername}
           />
         </Col>
       </Row>
@@ -235,40 +169,17 @@ export default function SignUp() {
       </Row>
       <Row>
         <Col>
-          <Input
-            placeholder="Full Name"
-            value={fullName}
-            setter={setFullName}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
           <Input placeholder="Email" value={email} setter={setEmail} />
         </Col>
       </Row>
       <Row>
         <Col>
-          <Input
-            placeholder="Phone Number"
-            value={phoneNumber}
-            setter={setPhoneNumber}
-          />
+          <Input placeholder="City" value={city} setter={setCity} />
         </Col>
       </Row>
       <Row>
         <Col>
-          <Input placeholder="Website" value={website} setter={setWebsite} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <AddressEditor setAddress={setAddress} value={address} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <CompanyEditor setCompany={setCompany} value={company} />
+          <Input placeholder="Company Name" value={companyName} setter={setCompanyName} />
         </Col>
       </Row>
       <Row>
