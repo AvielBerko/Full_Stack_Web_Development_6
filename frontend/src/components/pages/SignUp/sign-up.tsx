@@ -106,8 +106,8 @@ export default function SignUp() {
           username,
           password,
         });
-        newUserPassword.push().then(() => {
-          newUser.push().then(() => {
+        newUser.push().then(() => {
+          newUserPassword.push().then(() => {
             setAuth(newUser);
             navigate("/home");
           });
