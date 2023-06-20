@@ -57,6 +57,14 @@ const getEntityByJoin = (
   runQuery(query, function (err, result) {
     if (err) throw err;
     removeValidColumn(result);
+    result.forEach((element) => {
+      if (element.password) {
+        delete element["password"];
+      }
+      if (element.userId) {
+        delete element["userId"];
+      }
+    });
     callback(result);
   });
 };
