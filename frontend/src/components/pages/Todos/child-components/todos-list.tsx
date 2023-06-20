@@ -25,7 +25,7 @@ type TodosSortAction = {
   allTodos:Todo[];
 };
 
-function todosSortReducer(state: Todo[], action: TodosSortAction) {
+function todosSortReducer(_state: Todo[], action: TodosSortAction) {
   let ret = [...action.allTodos];
   //filter the todos
   switch (action.filterBy) {

@@ -2,7 +2,7 @@ import { useSession } from "../../../hooks/use-session-storage/use-session";
 import { Container, Row, Col } from "react-bootstrap";
 import User from "../../../lib/data/dataObjects/User";
 import UserInfo from "./child-components/user-info";
-import { Nullable } from "../../../src/types/react.types";
+import { Nullable } from "../../../types/react.types";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
 
 export default function Info() {

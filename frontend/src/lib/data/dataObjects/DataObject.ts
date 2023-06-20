@@ -1,7 +1,7 @@
 import Indexable from "../loders/interfaces/Indexable";
 import { find } from "../loders/mainLoader/getLoader";
 import { getOne } from "../loders/mainLoader/getLoader";
-import { push, remove, save } from "../loders/mainLoader/saveLoder";
+import { push, remove, save } from "../loders/mainLoader/saveLoader";
 
 export type DataObjectType = Partial<{
   id: string;

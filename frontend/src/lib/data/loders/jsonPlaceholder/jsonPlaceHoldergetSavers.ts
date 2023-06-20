@@ -1,10 +1,10 @@
-import { registerSavers } from "../mainLoader/saveLoder";
+import { registerSavers } from "../mainLoader/saveLoader";
 import Indexable from "../interfaces/Indexable";
 import { JSON_PLACEHOLDER_URL } from "./env";
 
 async function save<T extends Indexable>(path: string, item: T) {
     await fetch(`${JSON_PLACEHOLDER_URL}/${path}`, {
-        method: "PATCH",
+        method: "PUT",
         body: JSON.stringify(item),
         headers: {
         "Content-type": "application/json; charset=UTF-8",

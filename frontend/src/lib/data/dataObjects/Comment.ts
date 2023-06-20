@@ -27,7 +27,7 @@ export default class Comment extends DataObject {
 
   override get path(): string {
     if(!this._postId) throw new Error("postId is not defined");
-    return `posts/${this._postId}/${Comment.PATH}`
+    return Comment.PATH;
   }
 
   get postId(): string | undefined {

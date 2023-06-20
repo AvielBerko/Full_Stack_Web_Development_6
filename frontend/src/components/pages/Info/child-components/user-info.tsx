@@ -11,23 +11,13 @@ type UserItemProps = {
 };
 
 const UserInfo = ({ user, setUser }: UserItemProps) => {
-  const { id, name, username, email, address, phone, website, company } = user;
-  const { street, suite, city, zipcode, geo } = address || {};
-  const { name: companyName, catchPhrase, bs } = company || {};
+  const { id, username, email, city, companyName } = user;
 
   const [isEditable, setIsEditable] = useState(false);
-  const [nameValue, setNameValue] = useState<string>(name ?? "");
   const [usernameValue, setUsernameValue] = useState<string>(username ?? "");
   const [emailValue, setEmailValue] = useState<string>(email ?? "");
-  const [streetValue, setStreetValueValue] = useState<string>(street ?? "");
-  const [suiteValue, setSuiteValue] = useState<string>(suite ?? "");
   const [cityValue, setCityValue] = useState<string>(city ?? "");
-  const [zipcodeValue, setZipcodeValue] = useState<string>(zipcode ?? "");
-  const [phoneValue, setPhoneValue] = useState<string>(phone ?? "");
-  const [websiteValue, setWebsiteValue] = useState<string>(website ?? "");
   const [companyNameValue, setCompanyNameValue] = useState<string>(companyName ?? "");
-  const [catchPhraseValue, setCatchPhraseValue] = useState<string>(catchPhrase ?? "");
-  const [bsValue, setBsValue] = useState<string>(bs ?? "");
 
   const [alert, setAlert] = useState("");
 
@@ -48,17 +38,12 @@ const UserInfo = ({ user, setUser }: UserItemProps) => {
 
 
   const onSubmit = () => {
-    const newAddress = { street: streetValue, suite: suiteValue, city: cityValue, zipcode: zipcodeValue, geo };
-    const newCompany = {name: companyNameValue, catchPhrase: catchPhraseValue, bs: bsValue};
     const newUser = new User({
       id,
       username: usernameValue,
       email: emailValue,
-      address: newAddress,
-      name: nameValue,
-      company: newCompany,
-      phone: phoneValue,
-      website: websiteValue
+      city: cityValue,
+      companyName: companyNameValue,
     });
     if (username != usernameValue) {
       const checkUser = new User({});
@@ -85,27 +70,14 @@ const UserInfo = ({ user, setUser }: UserItemProps) => {
     <Card className="user-card">
       <Card.Body>
       <EdibaleLabel isEditable={isEditable} label='Username' setter={setUsernameValue} value={usernameValue} WrapperComponent={Card.Title} />
-        <EdibaleLabel isEditable={isEditable} label='Full Name' setter={setNameValue} value={nameValue} WrapperComponent={Card.Text} />
         <EdibaleLabel isEditable={isEditable} label='Email' setter={setEmailValue} value={emailValue} WrapperComponent={Card.Text} />
         {isEditable && 
           <div className="d-flex flex-row gap-2">
-            <EdibaleLabel isEditable={isEditable} label='Street' setter={setStreetValueValue} value={streetValue} WrapperComponent={Card.Text} />
-            <EdibaleLabel isEditable={isEditable} label='Suite' setter={setSuiteValue} value={suiteValue} WrapperComponent={Card.Text} />
             <EdibaleLabel isEditable={isEditable} label='City' setter={setCityValue} value={cityValue} WrapperComponent={Card.Text} />
-            <EdibaleLabel isEditable={isEditable} label='Zipcode' setter={setZipcodeValue} value={zipcodeValue} WrapperComponent={Card.Text} />
           </div>
         }
-        {!isEditable && <Card.Text>Address: {`${street}, ${suite}, ${city}, ${zipcode}`}</Card.Text> }
-        {/* <div className="d-flex flex-row gap-2">
-          {!isEditable && <label>Coordinates:</label>}  
-          <EdibaleLabel isEditable={isEditable} label='Lat' setter={setLatValue} value={latValue} WrapperComponent={Card.Text} />
-          <EdibaleLabel isEditable={isEditable} label='Lng' setter={setLngValue} value={lngValue} WrapperComponent={Card.Text} />
-      </div> */}
-        <EdibaleLabel isEditable={isEditable} label='Phone' setter={setPhoneValue} value={phoneValue} WrapperComponent={Card.Text} />
-        <EdibaleLabel isEditable={isEditable} label='Website' setter={setWebsiteValue} value={websiteValue} WrapperComponent={Card.Text} />
+        {!isEditable && <Card.Text>City: {`${city}`}</Card.Text> }
         <EdibaleLabel isEditable={isEditable} label='Company' setter={setCompanyNameValue} value={companyNameValue} WrapperComponent={Card.Text} />
-        <EdibaleLabel isEditable={isEditable} label='CatchPhrase' setter={setCatchPhraseValue} value={catchPhraseValue} WrapperComponent={Card.Text} />
-        <EdibaleLabel isEditable={isEditable} label='BS' setter={setBsValue} value={bsValue} WrapperComponent={Card.Text} />
       </Card.Body>
     </Card>
     <BlockButton onClick={onSubmit}>{isEditable ? "Save" : "Edit"}</BlockButton>
