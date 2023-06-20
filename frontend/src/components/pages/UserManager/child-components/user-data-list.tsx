@@ -13,12 +13,13 @@ export default function UserDataList({ user }: { user: User }) {
   if (!user?.id) return <></>;
 
   useEffect(() => {
-    if (!cookie) return;
+    // TODO - check if cookie is valid
+    //if (!cookie) return;
     const userPasswords = new UserPassword({});
-    userPasswords.all(cookie).then((users) => {
+    userPasswords.all("").then((users) => {
       setUsersData(users);
     });
-  }, [cookie]);
+  }, [user]);
 
   const handleUserDelete = (up: UserPassword) => {
     if (!up) return;

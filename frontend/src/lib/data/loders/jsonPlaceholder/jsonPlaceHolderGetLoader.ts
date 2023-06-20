@@ -20,8 +20,14 @@ async function find(path: string, query: any): Promise<any[]> {
   const queryStr = Object.keys(query).map((key) => `${key}=${query[key]}`);
 
   return fetch(`${JSON_PLACEHOLDER_URL}/${path}?${queryStr.join("&")}`)
-    .then((res) => res.json())
-    .then((data) => data as any[]);
+  .then((res) => {
+    const cookieHeader = res.headers.get("X-Set-Cookie");
+    if (cookieHeader) {
+      const cookie = cookieHeader.split(";")[0]; //.split("=")[1];
+      document.cookie = cookie;
+    }
+    return res.json();
+  })    .then((data) => data as any[]);
 }
 
 async function page(path: string, page: number,limit:number): Promise<any[]> {
