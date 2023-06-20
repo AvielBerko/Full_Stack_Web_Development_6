@@ -16,12 +16,6 @@ router.get("/:id", (req, res) => {
   );
 });
 
-router.get("/", (req, res) => {
-  databaseManagement.
-
-
-
-
 router.post("/", (req, res) => {
   databaseManagement.getEntityByColumn(
     "users",
@@ -36,7 +30,12 @@ router.post("/", (req, res) => {
             "id",
             result.insertId,
             (result) => {
-              res.setHeader('Set-Cookie', `jsonPlaceHolder=${databaseManagement.setCookieServer(result.insertId)}`)
+              res.setHeader(
+                "Set-Cookie",
+                `p6Cookie=${databaseManagement.setCookieServer(
+                  result.insertId
+                )}`
+              );
               res.send(result);
             }
           );

@@ -10,7 +10,7 @@ async function getList<T extends Indexable>(
   const fetchOptions = cookie
     ? {
         headers: {
-          "Set-Cookie": `${COOKIE_NAME}=${cookie}`,
+          "X-Set-Cookie": `${COOKIE_NAME}=${cookie}`,
         },
       }
     : {};
@@ -32,7 +32,7 @@ async function find(path: string, query: any): Promise<any[]> {
 
   return fetch(`${SERVER_URL}/${path}?${queryStr.join("&")}`)
     .then((res) => {
-      const cookieHeader = res.headers.get("Set-Cookie");
+      const cookieHeader = res.headers.get("X-Set-Cookie");
       if (cookieHeader) {
         const cookie = cookieHeader.split(";")[0].split("=")[1];
         document.cookie = cookie;

@@ -50,14 +50,22 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      res.setHeader('Set-Cookie', `jsonPlaceHolder=${databaseManagement.setCookieServer(result.id)}`)
+      res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+      res.setHeader("Access-Control-Allow-Headers", "X-Set-Cookie");
+      res.setHeader("Access-Control-Allow-Credentials", true);
+      
+      // res.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
+      res.setHeader(
+        "X-Set-Cookie",
+        `p6Cookie=${databaseManagement.setCookieServer(result.id)}`
+      );
       res.send(result);
     }
   );
 });
 
-router.get("/", (req, res) => {
-  databaseManagement.(
+// router.get("/", (req, res) => {
+//   databaseManagement.(
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
