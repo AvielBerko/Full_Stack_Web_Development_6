@@ -1,4 +1,23 @@
 const mysql = require("mysql");
+let cookieManagement = {};
+
+const setCookieServer = (userId) => {
+  const cookie = Math.random().toString(36).substring(2, 15);
+  cookieManagement[userId] = cookie;
+  return cookie;
+};
+
+const getIdByCookie = (cookie) => {
+  for (let key in cookieManagement) {
+    if (cookieManagement[key] === cookie) {
+      return key;
+    }
+  }
+};
+
+const getCookieByUserId = (userId) => {
+  return cookieManagement[userId];
+};
 
 function removeValidColumn(result) {
   result.forEach((element) => {
@@ -37,6 +56,15 @@ const getEntityByColumn = (table, columnName, columnValue, callback) => {
   runQuery(query, function (err, result) {
     if (err) throw err;
     removeValidColumn(result);
+    callback(result);
+  });
+};
+
+const getAllEntities = (table, callback) => {
+  let query = `SELECT * FROM ${table}`;
+
+  runQuery(query, function (err, result) {
+    if (err) throw err;
     callback(result);
   });
 };
@@ -171,3 +199,6 @@ exports.getEntityByColumn = getEntityByColumn;
 exports.deleteEntityById = deleteEntityById;
 exports.updateEntityById = updateEntityById;
 exports.getEntityByJoin = getEntityByJoin;
+exports.setCookieServer = setCookieServer;
+exports.getIdByCookie = getIdByCookie;
+exports.getCookieByUserId = getCookieByUserId;

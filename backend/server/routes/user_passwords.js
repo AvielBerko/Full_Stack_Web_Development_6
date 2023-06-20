@@ -16,27 +16,27 @@ router.get("/:id", (req, res) => {
   );
 });
 
+router.get("/", (req, res) => {
+  databaseManagement.
+
+
+
+
 router.post("/", (req, res) => {
   databaseManagement.getEntityByColumn(
     "users",
     "username",
     req.body.username,
     (result) => {
-      console.log("1");
-      console.log(result);
       if (result.length == 1) {
         req.body.user_id = result[0].id;
-        console.log("--------------------------------------------------------");
-        console.log(req.body);
-        console.log("--------------------------------------------------------");
         databaseManagement.insertQuery("user_passwords", req.body, (result) => {
-          console.log("2");
-          console.log(result);
           databaseManagement.getEntityByColumn(
             "user_passwords",
             "id",
             result.insertId,
             (result) => {
+              res.setHeader('Set-Cookie', `jsonPlaceHolder=${databaseManagement.setCookieServer(result.insertId)}`)
               res.send(result);
             }
           );
