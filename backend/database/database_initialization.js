@@ -5,25 +5,21 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "123123",
+  multipleStatements: true,
 });
 
 function run_sql_file(sql_path, callback) {
   data = fs.readFileSync(sql_path, "utf8");
-  data = data.replace(/(\r\n|\n|\r)/gm, " ");
-  all_queries = data.split(";").slice(0, -1);
-  console.log("DATABASE: all_queries :");
-  console.log(all_queries);
+  query = data.replace(/(\r\n|\n|\r)/gm, " ");
 
-  all_queries.forEach((element) => {
-    con.query(element, function (err, result) {
-      if (err) {
-        callback(err);
-        return;
-      }
-
-      console.log(`DATABASE: SQL command ${element} executed successfully`);
-      callback(null, result);
-    });
+  con.query(query, function (err, result) {
+    if (err) {
+      console.error(err);
+      callback(err);
+      return;
+    }
+    console.log(`DATABASE: SQL command ${query} executed successfully`);
+    callback(null, result);
   });
 }
 
@@ -46,17 +42,17 @@ const create_database = () =>
     }
   );
 
-const create_tables = () =>{
+const create_tables = (callback) => {
   run_sql_file("./backend/database/tables_configuration.sql", (err, result) => {
     if (err) {
       console.error("DATABASE: Error:", err);
     } else {
       console.log("DATABASE: Query result:", result);
+      callback();
     }
   });
   con.end();
-}
-
+};
 
 exports.create_database = create_database;
 exports.test_init_connection = test_init_connection;

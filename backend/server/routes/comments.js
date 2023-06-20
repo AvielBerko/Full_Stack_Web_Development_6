@@ -29,7 +29,18 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("comments", req.body, (result) => {
-    res.send(`mange to insert new comment with id ${result.insertId}`);
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "comments",
+      "id",
+      result.insertId,
+      (result) => {
+        res.send(result);
+      }
+    );
+    console.log(
+      `SERVER: mange to insert new comments with id ${result.insertId}`
+    );
   });
 });
 

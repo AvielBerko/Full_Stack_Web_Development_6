@@ -18,8 +18,17 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("user_passwords", req.body, (result) => {
-    res.send(`mange to insert new user_passwords with id ${result.insertId}`);
-  });
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "user_passwords",
+      "id",
+      result.insertId,
+      (result) => {
+        res.send(result);
+      }
+    );
+    console.log(`SERVER: mange to insert new user_passwords with id ${result.insertId}`);
+  } );
 });
 
 router.put("/:id", (req, res) => {

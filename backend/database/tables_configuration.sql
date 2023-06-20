@@ -47,9 +47,18 @@ CREATE TABLE `user_passwords` (
   `valid` BOOLEAN DEFAULT TRUE
 );
 
+CREATE TABLE `admins` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `userId` integer,
+  `isAdmin` BOOLEAN DEFAULT FALSE,
+  `valid` BOOLEAN DEFAULT TRUE
+);
+
 ALTER TABLE `todos` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
 ALTER TABLE `posts` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+
+ALTER TABLE `admins` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
 ALTER TABLE `user_passwords` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
@@ -86,4 +95,5 @@ INSERT INTO user_passwords (userId, password ) VALUES (3, 'password3');
 INSERT INTO user_passwords (userId, password ) VALUES (4, 'password4');
 INSERT INTO user_passwords (userId, password ) VALUES (5, 'password5');
 
-```
+INSERT INTO admins (userId, isAdmin ) VALUES (2, TRUE);
+INSERT INTO admins (userId, isAdmin ) VALUES (3, TRUE);

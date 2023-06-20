@@ -5,73 +5,104 @@ const router = express.Router();
 
 router.use(logger);
 
-router.get("/:name/todos", (req, res) => {
+router.get("/:id/todos", (req, res) => {
   databaseManagement.getEntityByColumn(
-    "users",
-    "username",
-    req.params.name,
+    "todos",
+    "userId",
+    req.params.id,
     (result) => {
-      databaseManagement.getEntityByColumn(
-        "todos",
-        "userId",
-        result[0].id.toString(),
-        (result) => {
-          res.send(result);
-        }
-      );
+      res.send(result);
     }
   );
 });
 
-router.get("/:name/posts", (req, res) => {
+router.get("/:id/posts", (req, res) => {
   databaseManagement.getEntityByColumn(
-    "users",
-    "username",
-    req.params.name,
+    "posts",
+    "userId",
+    req.params.id,
     (result) => {
-      databaseManagement.getEntityByColumn(
-        "posts",
-        "userId",
-        result[0].id,
-        (result) => {
-          res.send(result);
-        }
-      );
+      res.send(result);
     }
   );
 });
 
-router.get("/:name", (req, res) => {
+router.get("/:id", (req, res) => {
   databaseManagement.getEntityByColumn(
     "users",
-    "username",
-    req.params.name,
+    "id",
+    req.params.id,
     (result) => {
-      res.send(result[0]);
+      res.send(result);
+    }
+  );
+});
+
+router.get("/", (req, res) => {
+  databaseManagement.getEntityByJoin(
+    "users",
+    "user_passwords",
+    "id",
+    "userId",
+    "username",
+    req.query.username,
+    "password",
+    req.query.password,
+
+    (result) => {
+      res.send(result);
     }
   );
 });
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
-    res.send(`mange to insert new user with id ${result.insertId}`);
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "users",
+      "id",
+      result[0].insertId,
+      (result) => {
+        res.send(result);
+      }
+    );
+    console.log(`SERVER: mange to insert new user with id ${result[0].insertId}`);
   });
 });
 
-router.put("/:name", (req, res) => {
-  databaseManagement.getEntityByColumn(
-    "users",
-    "username",
-    req.params.name,
-    (result) => {
-      databaseManagement.updateEntityById(
-        "users",
-        result[0].id,
-        req.body,
-        (result) => {
-          res.send(`mange to update user with id ${req.params.name}`);
-        }
+router.post("/:id/posts", (req, res) => {
+  databaseManagement.insertQuery("posts", req.body, (result) => {
+    console.log(result);
+    databaseManagement.getEntityByColumn(
+      "posts",
+      "id",
+      result.insertId,
+      (result) => {
+        res.send(result);
+      }
       );
+      console.log(`mange to insert new todo with id ${result.insertId}`);
+  });
+});
+
+router.put("/:userID/todos/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "todos",
+    req.params.id,
+    req.body,
+    (result) => {
+      res.send(`mange to update todo with id ${req.params.id}`);
+    }
+  );
+});
+
+router.put("/:userID/posts/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "posts",
+    req.params.id,
+    req.body,
+    (result) => {
+      res.send(`mange to update post with id ${req.params.id}`);
     }
   );
 });
