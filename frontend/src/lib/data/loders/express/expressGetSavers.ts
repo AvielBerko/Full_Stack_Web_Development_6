@@ -24,6 +24,10 @@ async function push<T extends Indexable>(
     },
   });
   const pushedItem = await response.json();
+  if (pushedItem.length !== 0 ) {
+    return pushedItem[0].id.toString();
+  }
+  console.log(pushedItem);
   return pushedItem.id.toString();
 }
 
