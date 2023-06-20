@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import User from "../../../lib/data/dataObjects/User";
 import { Nullable } from "../../../types/react.types";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
-import UserDataList from "./child-com/user-data-list";
+import UserDataList from "./child-components/user-data-list";
 
 export default function UserManager() {
   const [user, _] = useSession<Nullable<User>>("user", null, UserSerializer);
@@ -14,7 +14,7 @@ export default function UserManager() {
     <Container>
       <Row className="text-center">
         <Col>
-          <h1>Usersss</h1>
+          <h1>Users</h1>
         </Col>
       </Row>
       <Row>

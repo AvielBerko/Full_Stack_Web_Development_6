@@ -63,7 +63,6 @@ export default class DataObject implements Indexable {
     if (results.length === 0) {
       return undefined;
     }
-    console.log(results);
     this.fromUnknowObject(results[0]);
     return this;
   }

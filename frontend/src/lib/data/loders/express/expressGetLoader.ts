@@ -7,14 +7,15 @@ async function getList<T extends Indexable>(
   path: string,
   cookie: Nullable<string> = null
 ): Promise<T[]> {
-  const fetchOptions = cookie
-    ? {
-        headers: {
-          "Set-Cookie": `${COOKIE_NAME}=${cookie}`,
-        },
-      }
-    : {};
-  return fetch(`${SERVER_URL}/${path}`, fetchOptions)
+  // const fetchOptions = cookie
+  //   ? {
+  //       method: "GET",
+  //       headers: {
+  //         "Set-Cookie": `${COOKIE_NAME}=${cookie}`,
+  //       },
+  //     }
+  //   : {};
+  return fetch(`${SERVER_URL}/${path}`, /*fetchOptions*/)
     .then((res) => res.json())
     .then((data) => data as unknown as T[]);
 }
@@ -32,11 +33,7 @@ async function find(path: string, query: any): Promise<any[]> {
 
   return fetch(`${SERVER_URL}/${path}?${queryStr.join("&")}`)
     .then((res) => {
-      const cookieHeader = res.headers.get("Set-Cookie");
-      if (cookieHeader) {
-        const cookie = cookieHeader.split(";")[0].split("=")[1];
-        document.cookie = cookie;
-      }
+      // TODO: add taking jwt from response
       return res.json();
     })
     .then((data) => data as any[]);
