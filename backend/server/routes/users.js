@@ -107,6 +107,17 @@ router.put("/:userID/posts/:id", (req, res) => {
   );
 });
 
+router.put("/:id", (req, res) => {
+  databaseManagement.updateEntityById(
+    "users",
+    req.params.id,
+    req.body,
+    (result) => {
+      res.send(`mange to update user with id ${req.params.id}`);
+    }
+  );
+});
+
 router.delete("/:name", (req, res) => {
   databaseManagement.getEntityByColumn(
     "users",
