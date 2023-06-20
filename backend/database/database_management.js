@@ -79,7 +79,9 @@ const insertQuery = (table, values, callback) => {
     case "user_passwords":
       query = `INSERT INTO ${table} (userId, password) VALUES ('${values.user_id}', '${values.password}');`;
       break;
-
+    case "admins":
+      query = `INSERT INTO ${table} (userId, isAdmin) VALUES ('${values.user_id}', '${values.is_admin}');)`;
+      break;
     default:
       throw new Error(`cant find ${table} at database`);
   }
@@ -108,7 +110,10 @@ const deleteEntityById = (table, values, callback) => {
     case "user_passwords":
       query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
       break;
-
+    case "admins":
+      query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
+      break;
+    
     default:
       throw new Error(`cant find ${table} at database`);
   }
@@ -136,6 +141,9 @@ const updateEntityById = (table, id, values, callback) => {
       break;
     case "user_passwords":
       query = `UPDATE ${table} SET userId = '${values.user_id}', password = '${values.password}' WHERE id = ${id};`;
+      break;
+    case "admins":
+      query = `UPDATE ${table} SET userId = '${values.user_id}', isAdmin = '${values.is_admin}' WHERE id = ${id};`;
       break;
 
     default:
