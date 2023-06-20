@@ -87,7 +87,7 @@ const insertQuery = (table, values, callback) => {
     case "user_passwords":
       query = `INSERT INTO ${table} (userId, password) VALUES ('${values.userId}', '${values.password}');`;
       break;
-    case "admins":
+    case "roles":
       query = `INSERT INTO ${table} (userId, isAdmin) VALUES ('${values.userId}', '${values.isAdmin}');)`;
       break;
     default:
@@ -118,7 +118,7 @@ const deleteEntityById = (table, values, callback) => {
     case "user_passwords":
       query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
       break;
-    case "admins":
+    case "roles":
       query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
       break;
 
@@ -152,7 +152,7 @@ const updateEntityById = (table, id, values, callback) => {
     case "user_passwords":
       query = `UPDATE ${table} SET userId = '${values.userId}', password = '${values.password}' WHERE id = ${id};`;
       break;
-    case "admins":
+    case "roles":
       query = `UPDATE ${table} SET userId = '${values.userId}', isAdmin = '${values.isAdmin}' WHERE id = ${id};`;
       break;
 

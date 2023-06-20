@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
@@ -14,14 +14,14 @@ const commentsRouter = require("./routes/comments");
 const postsRouter = require("./routes/posts");
 const todosRouter = require("./routes/todos");
 const user_passwordsRouter = require("./routes/user_passwords");
-const adminsRouter = require("./routes/admins");
+const rolesRouter = require("./routes/roles");
 
 app.use("/api/users", usersRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/todos", todosRouter);
 app.use("/api/user_passwords", user_passwordsRouter);
-app.use("/api/admins", adminsRouter);
+app.use("/api/roles", rolesRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`SERVER: Listening on port ${port}...`));
