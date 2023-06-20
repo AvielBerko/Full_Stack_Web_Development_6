@@ -17,18 +17,38 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  databaseManagement.insertQuery("user_passwords", req.body, (result) => {
-    console.log(result);
-    databaseManagement.getEntityByColumn(
-      "user_passwords",
-      "id",
-      result.insertId,
-      (result) => {
-        res.send(result);
+  databaseManagement.getEntityByColumn(
+    "users",
+    "username",
+    req.body.username,
+    (result) => {
+      console.log("1");
+      console.log(result);
+      if (result.length == 1) {
+        req.body.user_id = result[0].id;
+        console.log("--------------------------------------------------------");
+        console.log(req.body);
+        console.log("--------------------------------------------------------");
+        databaseManagement.insertQuery("user_passwords", req.body, (result) => {
+          console.log("2");
+          console.log(result);
+          databaseManagement.getEntityByColumn(
+            "user_passwords",
+            "id",
+            result.insertId,
+            (result) => {
+              res.send(result);
+            }
+          );
+          console.log(
+            `SERVER: mange to insert new user_passwords with id ${result.insertId}`
+          );
+        });
+      } else {
+        res.send("username not found");
       }
-    );
-    console.log(`SERVER: mange to insert new user_passwords with id ${result.insertId}`);
-  } );
+    }
+  );
 });
 
 router.put("/:id", (req, res) => {

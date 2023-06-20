@@ -23,10 +23,10 @@ export default class UserPassword extends DataObject {
     this._password = password;
   }
 
-  public static PATH = "user-passwords";
+  public static PATH = "user_passwords";
 
   override get path(): string {
-    return "user-passwords";
+    return "user_passwords";
   }
 
   get username(): string | undefined {

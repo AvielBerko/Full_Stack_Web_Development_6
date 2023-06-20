@@ -107,7 +107,9 @@ export default function SignUp() {
           password,
         });
         newUser.push().then(() => {
+          console.log("-------------new user pushed----------");
           newUserPassword.push().then(() => {
+            console.log("-------------new user password pushed----------");
             setAuth(newUser);
             navigate("/home");
           });
