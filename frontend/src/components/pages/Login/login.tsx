@@ -5,7 +5,6 @@ import BlockButton from "../../common/BlockButton/block-button";
 import User from "../../../lib/data/dataObjects/User";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "../../../hooks/use-session";
-import { useCookie } from "../../../hooks/use-cookie";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
 import { Nullable, State } from "../../../types/react.types";
 
