@@ -73,7 +73,7 @@ const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
     case "users":
-      query = `INSERT INTO ${table} (username, email, companyName, city) VALUES ('${values.username}', '${values.email}', '${values.companyName}', '${values.city}'); INSERT INTO user_passwords (userId, password) VALUES (LAST_INSERT_ID(), '${values.password}');`;
+      query = `INSERT INTO ${table} (username, email, companyName, city) VALUES ('${values.username}', '${values.email}', '${values.companyName}', '${values.city}');`;
       break;
     case "todos":
       query = `INSERT INTO ${table} (userId, title) VALUES ('${values.user_id}', '${values.title}');`;

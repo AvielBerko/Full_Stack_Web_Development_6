@@ -61,12 +61,12 @@ router.post("/", (req, res) => {
     databaseManagement.getEntityByColumn(
       "users",
       "id",
-      result[0].insertId,
+      result.insertId,
       (result) => {
         res.send(result);
       }
     );
-    console.log(`SERVER: mange to insert new user with id ${result[0].insertId}`);
+    console.log(`SERVER: mange to insert new user with id ${result.insertId}`);
   });
 });
 
