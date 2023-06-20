@@ -50,10 +50,14 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
+      res.setHeader('Set-Cookie', `jsonPlaceHolder=${databaseManagement.setCookieServer(result.id)}`)
       res.send(result);
     }
   );
 });
+
+router.get("/", (req, res) => {
+  databaseManagement.(
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
@@ -80,8 +84,8 @@ router.post("/:id/posts", (req, res) => {
       (result) => {
         res.send(result);
       }
-      );
-      console.log(`mange to insert new todo with id ${result.insertId}`);
+    );
+    console.log(`mange to insert new todo with id ${result.insertId}`);
   });
 });
 
