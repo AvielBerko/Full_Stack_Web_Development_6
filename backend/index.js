@@ -13,7 +13,7 @@ setTimeout(
       {
         username: "test_insertQuery",
         email: "email_insertQuery",
-        company_name: "company_insertQuery",
+        companyName: "company_insertQuery",
         city: "city_insertQuery",
         password: "password_insertQuery",
       },
@@ -23,4 +23,3 @@ setTimeout(
     ),
   1000
 );
-

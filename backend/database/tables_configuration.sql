@@ -9,7 +9,7 @@ CREATE TABLE `users` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(255),
   `email` varchar(255),
-  `company_name` varchar(255),
+  `companyName` varchar(255),
   `city` varchar(255),
   `valid` BOOLEAN DEFAULT TRUE,
   UNIQUE (`username`)
@@ -65,11 +65,11 @@ ALTER TABLE `user_passwords` ADD FOREIGN KEY (`userId`) REFERENCES `users` (`id`
 ALTER TABLE `comments` ADD FOREIGN KEY (`postId`) REFERENCES `posts` (`id`);
 
 
-INSERT INTO users (username, email, company_name, city ) VALUES ('username1', 'my_mail1', 'my_company1', 'my_city1');
-INSERT INTO users (username, email, company_name, city ) VALUES ('username2', 'my_mail2', 'my_company2', 'my_city2');
-INSERT INTO users (username, email, company_name, city ) VALUES ('username3', 'my_mail3', 'my_company3', 'my_city3');
-INSERT INTO users (username, email, company_name, city ) VALUES ('username4', 'my_mail4', 'my_company4', 'my_city4');
-INSERT INTO users (username, email, company_name, city ) VALUES ('username5', 'my_mail5', 'my_company5', 'my_city5');
+INSERT INTO users (username, email, companyName, city ) VALUES ('username1', 'my_mail1', 'my_company1', 'my_city1');
+INSERT INTO users (username, email, companyName, city ) VALUES ('username2', 'my_mail2', 'my_company2', 'my_city2');
+INSERT INTO users (username, email, companyName, city ) VALUES ('username3', 'my_mail3', 'my_company3', 'my_city3');
+INSERT INTO users (username, email, companyName, city ) VALUES ('username4', 'my_mail4', 'my_company4', 'my_city4');
+INSERT INTO users (username, email, companyName, city ) VALUES ('username5', 'my_mail5', 'my_company5', 'my_city5');
 
 INSERT INTO todos (userId, title ) VALUES (1, 'title1');
 INSERT INTO todos (userId, title ) VALUES (1, 'title2');

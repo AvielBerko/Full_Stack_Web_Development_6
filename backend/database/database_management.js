@@ -65,7 +65,7 @@ const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
     case "users":
-      query = `INSERT INTO ${table} (username, email, company_name, city) VALUES ('${values.username}', '${values.email}', '${values.company_name}', '${values.city}'); INSERT INTO user_passwords (userId, password) VALUES (LAST_INSERT_ID(), '${values.password}');`;
+      query = `INSERT INTO ${table} (username, email, companyName, city) VALUES ('${values.username}', '${values.email}', '${values.companyName}', '${values.city}'); INSERT INTO user_passwords (userId, password) VALUES (LAST_INSERT_ID(), '${values.password}');`;
       break;
     case "todos":
       query = `INSERT INTO ${table} (userId, title) VALUES ('${values.user_id}', '${values.title}');`;
@@ -113,7 +113,7 @@ const deleteEntityById = (table, values, callback) => {
     case "admins":
       query = `UPDATE ${table} SET valid = FALSE WHERE id = ${values};`;
       break;
-    
+
     default:
       throw new Error(`cant find ${table} at database`);
   }
@@ -128,10 +128,12 @@ const updateEntityById = (table, id, values, callback) => {
   let query;
   switch (table) {
     case "users":
-      query = `UPDATE ${table} SET username = '${values.username}', email = '${values.email}', company_name = '${values.company_name}', city = '${values.city}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET username = '${values.username}', email = '${values.email}', companyName = '${values.companyName}', city = '${values.city}' WHERE id = ${id};`;
       break;
     case "todos":
-      query = `UPDATE ${table} SET userId = '${values.userId}', title = '${values.title}', completed = '${Number(values.completed)}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET userId = '${values.userId}', title = '${
+        values.title
+      }', completed = '${Number(values.completed)}' WHERE id = ${id};`;
       break;
     case "posts":
       query = `UPDATE ${table} SET userId = '${values.user_id}', title = '${values.title}', body = '${values.body}' WHERE id = ${id};`;
