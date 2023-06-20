@@ -76,19 +76,19 @@ const insertQuery = (table, values, callback) => {
       query = `INSERT INTO ${table} (username, email, companyName, city) VALUES ('${values.username}', '${values.email}', '${values.companyName}', '${values.city}');`;
       break;
     case "todos":
-      query = `INSERT INTO ${table} (userId, title) VALUES ('${values.user_id}', '${values.title}');`;
+      query = `INSERT INTO ${table} (userId, title) VALUES ('${values.userId}', '${values.title}');`;
       break;
     case "posts":
-      query = `INSERT INTO ${table} (userId, title, body) VALUES ('${values.user_id}', '${values.title}', '${values.body}');`;
+      query = `INSERT INTO ${table} (userId, title, body) VALUES ('${values.userId}', '${values.title}', '${values.body}');`;
       break;
     case "comments":
-      query = `INSERT INTO ${table} (postId, name, email, body) VALUES ('${values.post_id}', '${values.name}', '${values.email}', '${values.body}');`;
+      query = `INSERT INTO ${table} (postId, name, email, body) VALUES ('${values.postId}', '${values.name}', '${values.email}', '${values.body}');`;
       break;
     case "user_passwords":
-      query = `INSERT INTO ${table} (userId, password) VALUES ('${values.user_id}', '${values.password}');`;
+      query = `INSERT INTO ${table} (userId, password) VALUES ('${values.userId}', '${values.password}');`;
       break;
     case "admins":
-      query = `INSERT INTO ${table} (userId, isAdmin) VALUES ('${values.user_id}', '${values.is_admin}');)`;
+      query = `INSERT INTO ${table} (userId, isAdmin) VALUES ('${values.userId}', '${values.isAdmin}');)`;
       break;
     default:
       throw new Error(`cant find ${table} at database`);
@@ -144,16 +144,16 @@ const updateEntityById = (table, id, values, callback) => {
       }', completed = '${Number(values.completed)}' WHERE id = ${id};`;
       break;
     case "posts":
-      query = `UPDATE ${table} SET userId = '${values.user_id}', title = '${values.title}', body = '${values.body}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET userId = '${values.userId}', title = '${values.title}', body = '${values.body}' WHERE id = ${id};`;
       break;
     case "comments":
-      query = `UPDATE ${table} SET postId = '${values.post_id}', name = '${values.name}', email = '${values.email}', body = '${values.body}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET postId = '${values.postId}', name = '${values.name}', email = '${values.email}', body = '${values.body}' WHERE id = ${id};`;
       break;
     case "user_passwords":
-      query = `UPDATE ${table} SET userId = '${values.user_id}', password = '${values.password}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET userId = '${values.userId}', password = '${values.password}' WHERE id = ${id};`;
       break;
     case "admins":
-      query = `UPDATE ${table} SET userId = '${values.user_id}', isAdmin = '${values.is_admin}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET userId = '${values.userId}', isAdmin = '${values.isAdmin}' WHERE id = ${id};`;
       break;
 
     default:
