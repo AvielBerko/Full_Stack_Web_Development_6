@@ -1,5 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import { useSession } from "../../../../hooks/use-session-storage/use-session";
+import { useSession } from "../../../../hooks/use-session";
 import User from "../../../../lib/data/dataObjects/User";
 import { useEffect, useMemo, useState } from "react";
  import Album from "../../../../lib/data/dataObjects/Album";

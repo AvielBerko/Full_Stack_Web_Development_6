@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { useSession } from "../../hooks/use-session-storage/use-session";
+import { useSession } from "../../hooks/use-session";
 
 export default function TopNavbar() {
 
@@ -25,6 +25,7 @@ export default function TopNavbar() {
         <Nav.Link href="/todos">My Todos</Nav.Link>
         <Nav.Link href="/posts">My Posts</Nav.Link>
         <Nav.Link href="/albums">My Albums</Nav.Link>
+        <Nav.Link href="/user_passwords">User Manager</Nav.Link>
         <Nav.Link href="#" onClick={logOut}>
           Logout
         </Nav.Link>

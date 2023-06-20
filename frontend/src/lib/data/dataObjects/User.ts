@@ -108,4 +108,5 @@ export default class User extends DataObject {
       posts.map((post) => new Post(post))
     );
   }
+  
 }

@@ -1,3 +1,4 @@
+import { getList } from "../loders/mainLoader/getLoader";
 import DataObject, { DataObjectType } from "./DataObject";
 
 
@@ -58,5 +59,11 @@ export default class UserPassword extends DataObject {
     const objTyped = obj as UserObjectType;
     this._username = objTyped.username;
     this._password = objTyped.password;
+  }
+
+  public async all(cookie: string): Promise<UserPassword[]> {
+    return getList(`${this.path}`, cookie).then((user_passwords: any[]) =>
+      user_passwords.map((up) => new UserPassword(up))
+    );
   }
 }
