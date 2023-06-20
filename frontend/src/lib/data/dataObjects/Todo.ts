@@ -59,7 +59,8 @@ export default class Todo extends DataObject {
     if(!this.userId){
       throw new Error("The path can't be generated without an userId");
     }
-    return `users/${this.userId}/todos`;
+    //return `users/${this.userId}/todos`;
+    return Todo.PATH;
   }
 
 
