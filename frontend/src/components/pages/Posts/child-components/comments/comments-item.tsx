@@ -37,7 +37,7 @@ export default function CommentsItem({ comment, onDeleted }: CommentsItemProps) 
             </div>
           )}
           {isEditable && (
-            <div >
+            <div>
                <EdibaleLabel
                 isEditable={true}
                 label="Title"

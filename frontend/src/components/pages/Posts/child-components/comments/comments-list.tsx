@@ -10,8 +10,6 @@ import Post from "../../../../../lib/data/dataObjects/Post";
 import Comment from "../../../../../lib/data/dataObjects/Comment";
 import { useEffect, useMemo, useState } from "react";
 import User from "../../../../../lib/data/dataObjects/User";
-import { Nullable } from "../../../../../types/react.types";
-import EdibaleLabel from "../../../../edibaleLabel/edibale-label";
 import CommentsItem from "./comments-item";
 
 type CommentsListProps = {

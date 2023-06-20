@@ -104,8 +104,6 @@ export default function TodosList({ sortBy, filterBy }: TodosListProps) {
     });
   }, [sortBy,filterBy,todos]);
 
-  
-
   const setTodo = (newTodo: Todo) => {
     const todoToChange = todos.findIndex((t: Todo) => newTodo.id === t.id);
     if (todoToChange >= 0) {
@@ -127,8 +125,14 @@ export default function TodosList({ sortBy, filterBy }: TodosListProps) {
     setNewTodoTitle("");
   };
 
+  const handleTodoDelete = (todo: Todo) => {
+    const newTodos = todos.filter((t) => t.id !== todo.id);
+    setTodos(newTodos);
+    todo.remove();
+  };
+
   const todosDOM = shownTodos.map((todo: Todo) => {
-    return <TodosItem todo={todo} setTodo={setTodo} key={todo.id} />;
+    return <TodosItem todo={todo} setTodo={setTodo} onDeleted={handleTodoDelete} key={todo.id} />;
   });
 
   return (
