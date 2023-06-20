@@ -3,7 +3,7 @@ import BlockButton from "../../common/BlockButton/block-button";
 import { useState } from "react";
 import User from "../../../lib/data/dataObjects/User";
 import { Col, Container, Row, Alert } from "react-bootstrap";
-import { useSession } from "../../../hooks/use-session-storage/use-session";
+import { useSession } from "../../../hooks/use-session";
 import { UserSerializer } from "../../../lib/data/dataObjects/serialization";
 import { useNavigate } from "react-router-dom";
 import UserPassword from "../../../lib/data/dataObjects/UserPassword";
@@ -107,9 +107,7 @@ export default function SignUp() {
           password,
         });
         newUser.push().then(() => {
-          console.log("-------------new user pushed----------");
           newUserPassword.push().then(() => {
-            console.log("-------------new user password pushed----------");
             setAuth(newUser);
             navigate("/home");
           });

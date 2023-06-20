@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Serializiation } from "../../types/dataObjects.types";
+import { Serializiation } from "../types/dataObjects.types";
 
 export const useSession = <T>(
   key: string,

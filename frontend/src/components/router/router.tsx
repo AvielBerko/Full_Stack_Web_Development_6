@@ -8,6 +8,7 @@ import Posts from "../pages/Posts/posts";
 import Albums from "../pages/Albums/albums";
 import Info from "../pages/Info/info";
 import AlbumPage from "../pages/Albums/album";
+import UserManager from "../pages/UserManager/user-manager";
 
 export default function Router() {
 
@@ -23,6 +24,7 @@ export default function Router() {
       <Route path="todos" element={makePrivate(<Todos/>)} />
       <Route path="posts" element={makePrivate(<Posts/>)} />
       <Route path="info" element={makePrivate(<Info />)} />
+      <Route path="user_passwords" element={makePrivate(<UserManager />)} />
     </Routes>
   );
 }

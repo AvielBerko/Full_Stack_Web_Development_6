@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useSession } from "../../hooks/use-session-storage/use-session";
+import { useSession } from "../../hooks/use-session";
 import { UserSerializer } from "../../lib/data/dataObjects/serialization";
-import { Nullable } from "../../src/types/react.types";
+import { Nullable } from "../../../src/types/react.types";
 import User from "../../lib/data/dataObjects/User";
 
 type PrivateRouteProps = {

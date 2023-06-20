@@ -27,7 +27,6 @@ async function push<T extends Indexable>(
   if (pushedItem.length !== 0 ) {
     return pushedItem[0].id.toString();
   }
-  console.log(pushedItem);
   return pushedItem.id.toString();
 }
 
