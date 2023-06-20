@@ -2,7 +2,7 @@ import { ListGroupItem, Card, Button } from "react-bootstrap";
 import Post from "../../../../lib/data/dataObjects/Post";
 import { useState } from "react";
 import { Nullable, StateSetter } from "../../../../types/react.types";
-import CommentsList from "./comments-list";
+import CommentsList from "./comments/comments-list";
 import User from "../../../../lib/data/dataObjects/User";
 import EdibaleLabel from "../../../edibaleLabel/edibale-label";
 

@@ -6,10 +6,13 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import Post from "../../../../lib/data/dataObjects/Post";
-import Comment from "../../../../lib/data/dataObjects/Comment";
+import Post from "../../../../../lib/data/dataObjects/Post";
+import Comment from "../../../../../lib/data/dataObjects/Comment";
 import { useEffect, useMemo, useState } from "react";
-import User from "../../../../lib/data/dataObjects/User";
+import User from "../../../../../lib/data/dataObjects/User";
+import { Nullable } from "../../../../../types/react.types";
+import EdibaleLabel from "../../../../edibaleLabel/edibale-label";
+import CommentsItem from "./comments-item";
 
 type CommentsListProps = {
   post: Post;
@@ -29,12 +32,13 @@ export default function CommentsList({ post, user }: CommentsListProps) {
 
   const fetchComments = () => {
     getComments.then((comments) => {
+      comments = comments.map((c) => new Comment(c));
       setComments(comments);
     });
   };
 
   useEffect(() => {
-    fetchComments();
+    fetchComments(); 
   }, []);
 
   const addComment = () => {
@@ -48,6 +52,12 @@ export default function CommentsList({ post, user }: CommentsListProps) {
     setComments((prev) => [newComment, ...prev]);
     setNewCommentBody("");
     setNewCommentName("");
+  };
+
+  const handleCommentDelete = (comment: Comment) => {
+    const newComments = comments.filter((c) => c.id !== comment.id);
+    setComments(newComments);
+    comment.remove();
   };
 
   return (
@@ -67,17 +77,16 @@ export default function CommentsList({ post, user }: CommentsListProps) {
               />
               <Form.Control
                 value={newCommentBody}
-                placeholder=" Body"
+                placeholder="Body"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setNewCommentBody(e.target.value)
                 }
               />
             </InputGroup>
           </ListGroupItem>
-          {comments.map((comment) => (
+          {comments.map((comment: Comment) => (
             <ListGroup.Item key={comment.id}>
-              <h5>{comment.name}</h5>
-              <p>{comment.body}</p>
+              <CommentsItem key={comment.id} comment={comment} onDeleted={handleCommentDelete} />
             </ListGroup.Item>
           ))}
         </ListGroup>

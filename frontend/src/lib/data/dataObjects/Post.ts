@@ -72,7 +72,5 @@ export default class Post extends DataObject {
 
   get comments(): Promise<Comment[]> {
     return getList<Comment>(`${Comment.PATH}/?postId=${this._id}`);
-    //return getList<Comment>(`${Post.PATH}/${this._id}/${Comment.PATH}`);
   }
-
 }
