@@ -10,7 +10,11 @@ type UserDataItemProps = {
   onDeleted: (up: UserPassword) => void;
 };
 
-export default function UserDataItem({ up, cookie, onDeleted }: UserDataItemProps) {
+export default function UserDataItem({
+  up,
+  cookie,
+  onDeleted,
+}: UserDataItemProps) {
   if (!up) return <></>;
 
   const [isEditable, setIsEditable] = useState<Boolean>(false);
@@ -19,7 +23,7 @@ export default function UserDataItem({ up, cookie, onDeleted }: UserDataItemProp
 
   const createObject = (key: string, value: string) => {
     return Object.assign({}, { [key]: value });
-  }
+  };
 
   const handleEdit = () => {
     setIsEditable(false);
@@ -39,10 +43,6 @@ export default function UserDataItem({ up, cookie, onDeleted }: UserDataItemProp
               <Row>
                 <Col>
                   <p>{userId}</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
                   <p>{password}</p>
                 </Col>
               </Row>
@@ -55,16 +55,19 @@ export default function UserDataItem({ up, cookie, onDeleted }: UserDataItemProp
         </ListGroupItem>
       )}
       {isEditable && (
-        <div className="d-flex justify-content-between">
-          <EdibaleLabel
-            isEditable={true}
-            label="Password"
-            setter={setPassword}
-            value={password}
-            WrapperComponent={ListGroupItem}
-          />
-          <div className="d-flex gap-2">
-            <Button onClick={() => handleEdit()}>Save</Button>
+        <div>
+          <p>{userId}</p>
+          <div className="d-flex justify-content-between">
+            <EdibaleLabel
+              isEditable={true}
+              label="Password"
+              setter={setPassword}
+              value={password}
+              WrapperComponent={ListGroupItem}
+            />
+            <div className="d-flex gap-2">
+              <Button onClick={() => handleEdit()}>Save</Button>
+            </div>
           </div>
         </div>
       )}
