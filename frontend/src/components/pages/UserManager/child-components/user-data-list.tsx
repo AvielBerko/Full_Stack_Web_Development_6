@@ -11,14 +11,18 @@ export default function UserDataList({ user }: { user: User }) {
   const [cookie] = useCookie(COOKIE_NAME);
 
   if (!user?.id) return <></>;
+  
+  const createObject = (key: string, value: string) => {
+    return Object.assign({}, { [key]: value });
+  }
 
   useEffect(() => {
     if (!cookie) return;
     const userPasswords = new UserPassword({});
-    userPasswords.all({COOKIE_NAME: cookie}).then((users) => {
+    userPasswords.all(createObject(COOKIE_NAME, cookie)).then((users) => {
       setUsersData(users);
     });
-  }, [user]);
+  }, [cookie]);
 
   const handleUserDelete = (up: UserPassword) => {
     if (!up) return;
