@@ -4,9 +4,8 @@ let cookieManagement = {};
 const setCookieServer = (userId) => {
   const cookie = Math.random().toString(36).substring(2, 15);
   cookieManagement[userId] = cookie;
-  console.log(
-    `SERVER: cookieManagement: ${JSON.stringify(cookieManagement)} `
-  );  return cookie;
+  console.log(`SERVER: cookieManagement: ${JSON.stringify(cookieManagement)} `);
+  return cookie;
 };
 
 const getIdByCookie = (cookie) => {
@@ -225,10 +224,10 @@ const updateEntityById = (table, id, values, callback) => {
       query = `UPDATE ${table} SET postId = '${values.postId}', name = '${values.name}', email = '${values.email}', body = '${values.body}' WHERE id = ${id};`;
       break;
     case "user_passwords":
-      query = `UPDATE ${table} SET userId = '${values.userId}', password = '${values.password}' WHERE id = ${id};`;
+      query = `UPDATE ${table} SET password = '${values.password}' WHERE id = ${id};`;
       break;
     case "roles":
-      query = `UPDATE ${table} SET userId = '${values.userId}', isAdmin = '${values.isAdmin}' WHERE id = ${id};`;
+      query = `UPDATE ${table} isAdmin = '${values.isAdmin}' WHERE id = ${id};`;
       break;
 
     default:

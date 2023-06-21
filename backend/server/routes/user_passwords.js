@@ -86,9 +86,6 @@ router.delete("/:id", (req, res) => {
           res.send(`mange to delete user_passwords with id ${req.params.id}`);
         }
       );
-      databaseManagement.deleteEntityById("users", req.params.id, (result) => {
-        res.send(`mange to delete user with id ${req.params.id}}`);
-      });
     } else {
       res.status(304).send("you are not admin");
     }
