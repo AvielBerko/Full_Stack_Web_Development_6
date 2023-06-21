@@ -17,8 +17,7 @@ router.get("/:id/todos", (req, res) => {
         res.send(result);
       }
     );
-  }
-  else {
+  } else {
     databaseManagement.getEntityByColumn(
       "todos",
       "userId",
@@ -29,7 +28,6 @@ router.get("/:id/todos", (req, res) => {
     );
   }
 });
-
 
 router.get("/:id/posts", (req, res) => {
   databaseManagement.getEntityByColumn(
@@ -51,6 +49,10 @@ router.get("/:id", (req, res) => {
       res.send(result);
     }
   );
+});
+
+router.get("/:id/logout", (req, res) => {
+  databaseManagement.deleteCookieByUserId(req.params.id)? res.send("logout"): res.status(404).send("not logout");
 });
 
 router.get("/", (req, res) => {

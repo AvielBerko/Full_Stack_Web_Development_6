@@ -4,16 +4,16 @@ let cookieManagement = {};
 const setCookieServer = (userId) => {
   const cookie = Math.random().toString(36).substring(2, 15);
   cookieManagement[userId] = cookie;
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+  console.log("!!!!!!!!!!!!!!!!setCookieServer!!!!!!!!!!!!!1");
   console.log(JSON.stringify(cookieManagement));
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+  console.log("!!!!!!!!!!!!setCookieServer!!!!!!!!!!!!!!!!!1");
   return cookie;
 };
 
 const getIdByCookie = (cookie) => {
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2");
+  console.log("!!!!!!!!!!!!!!!getIdByCookie!!!!!!!!!!!!!!2");
   console.log(JSON.stringify(cookieManagement));
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2");
+  console.log("!!!!!!!!!!!!!getIdByCookie!!!!!!!!!!!!!!!!2");
   for (let key in cookieManagement) {
     if (cookieManagement[key] === cookie) {
       return key;
@@ -25,6 +25,19 @@ const getCookieByUserId = (userId) => {
   return cookieManagement[userId];
 };
 
+const deleteCookieByUserId = (userId) => {
+  if (cookieManagement[userId]) {
+    delete cookieManagement[userId];
+    console.log("!!!!!!!!!!!!!!!!deleteCookieByUserId!!!!!!!!!!!!!3");
+    cookieManagement[userId];
+    console.log(userId);
+    console.log(JSON.stringify(cookieManagement));
+    console.log("!!!!!!!!!!!!deleteCookieByUserId!!!!!!!!!!!!!!!!!3");
+    return true;
+  }
+  return false;
+};
+
 const isAdminByCookie = (cookie, callback) => {
   const userId = getIdByCookie(cookie);
   if (userId) {
@@ -33,13 +46,12 @@ const isAdminByCookie = (cookie, callback) => {
       if (err) throw err;
       if (result[0].isAdmin) {
         callback(true);
-      }
-      else {
+      } else {
         callback(false);
       }
     });
   }
-}
+};
 
 function removeValidColumn(result) {
   result.forEach((element) => {
@@ -242,3 +254,4 @@ exports.setCookieServer = setCookieServer;
 exports.isAdminByCookie = isAdminByCookie;
 exports.getAllEntities = getAllEntities;
 exports.getEntityByColumns = getEntityByColumns;
+exports.deleteCookieByUserId = deleteCookieByUserId;
