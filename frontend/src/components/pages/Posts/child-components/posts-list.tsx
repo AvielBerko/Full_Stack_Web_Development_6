@@ -46,9 +46,9 @@ export default function PostsList({ sortBy }: PostlistProps) {
       case SortBy.ID:
         sortedPosts = [...posts].sort((a, b) => {
           if (a.id && b.id) {
-            const idA = String(a.id);
-            const idB = String(b.id);
-            return idA.localeCompare(idB);
+            const idA = Number(a.id);
+            const idB = Number(b.id);
+            return idA - idB;
           }
           // Handle the case where either a.id or b.id is undefined
           return 0;
