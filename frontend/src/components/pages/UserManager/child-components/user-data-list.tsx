@@ -1,4 +1,4 @@
-import { Button, InputGroup, ListGroup, ListGroupItem } from "react-bootstrap";
+import { InputGroup, ListGroup, ListGroupItem } from "react-bootstrap";
 import User from "../../../../lib/data/dataObjects/User";
 import { useEffect, useState } from "react";
 import { useCookie } from "../../../../hooks/use-cookie";
@@ -29,13 +29,6 @@ export default function UserDataList({ user }: { user: User }) {
     const newUsersData = usersData.filter((p) => p.id !== up.id);
     setUsersData(newUsersData);
     up.remove();
-  };
-
-  const addUser = () => {
-    // const userPasswords = new UserPassword({});
-    // userPasswords.create(cookie).then((up) => {
-    //     setUsersData([...usersData, up]);
-    // });
   };
 
   const userDataDOM = usersData.map((up: UserPassword) => {

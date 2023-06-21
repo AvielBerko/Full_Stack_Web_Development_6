@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export const useCookie = (cookieName: string) => {
-    const [cookieValue, setCookieValue] = useState<string>("");
+export const useCookie = (cookieName: string): [string, () => void] => {
+  const [cookieValue, setCookieValue] = useState<string>("");
   
     useEffect(() => {
       const getCookie = () => {
@@ -18,9 +18,15 @@ export const useCookie = (cookieName: string) => {
   
         return "";
       };
-  
+      
       const value = getCookie();
       setCookieValue(value);
     }, [cookieName]);
-    return [cookieValue];
+    
+    const clearCookie = () => {
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      setCookieValue("");
+    };
+
+    return [cookieValue, clearCookie];
   }

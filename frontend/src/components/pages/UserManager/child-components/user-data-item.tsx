@@ -12,16 +12,16 @@ export default function UserDataItem({ up, onDeleted }: UserDataItemProps) {
   if (!up) return <></>;
 
   const [isEditable, setIsEditable] = useState<Boolean>(false);
-  const [userId, setUserId] = useState<string>(up.id || "");
+  const [userId, _] = useState<string>(up.id || "");
   const [password, setPassword] = useState<string>(up.password || "");
 
   const handleEdit = () => {
-    // setIsEditable(false);
-    // const newTodo = new Todo({
-    //   ...(todo.toUnknowObject() as any),
-    //   title: todoTitle,
-    // });
-    // newTodo.save();
+    setIsEditable(false);
+    const newUserPassword = new UserPassword({
+      ...(up.toUnknowObject() as any),
+      password,
+    });
+    newUserPassword.save();
   };
 
   return (

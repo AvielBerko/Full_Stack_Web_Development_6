@@ -1,16 +1,25 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSession } from "../../hooks/use-session";
 import { Nullable } from "../../types/react.types";
+import { useCookie } from "../../hooks/use-cookie";
+import { COOKIE_NAME } from "../../lib/data/loders/mainLoader/getLoader";
+import User from "../../lib/data/dataObjects/User";
 
 export default function TopNavbar() {
 
-  const [user,setUser] = useSession("user",null);
+  const [user,setUser] = useSession<Nullable<User>>("user",null);
   const [isAdmin, setIsAdmin] = useSession<Nullable<boolean>>("isAdmin", null);
-
-  const logOut = () => {
+  const [_, clearCookie] = useCookie(COOKIE_NAME); 
+  
+  async function logOut() {
+    if (!user) return;
+    const userl = new User(user);
+    const result = await userl.logout();
+    clearCookie();
     setUser(null);
     setIsAdmin(false);
-  };
+    console.log(result);
+  }
 
   const notLoggedInLinks = (
     <Nav className="me-auto">
