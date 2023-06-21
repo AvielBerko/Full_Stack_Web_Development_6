@@ -95,9 +95,9 @@ INSERT INTO user_passwords (userId, password ) VALUES (3, 'password3');
 INSERT INTO user_passwords (userId, password ) VALUES (4, 'password4');
 INSERT INTO user_passwords (userId, password ) VALUES (5, 'password5');
 
-INSERT INTO roles (userId, isAdmin ) VALUES (1, FALSE);
-INSERT INTO roles (userId, isAdmin ) VALUES (2, TRUE);
-INSERT INTO roles (userId, isAdmin ) VALUES (3, TRUE);
-INSERT INTO roles (userId, isAdmin ) VALUES (4, TRUE);
+INSERT INTO roles (userId, isAdmin ) VALUES (1, TRUE);
+INSERT INTO roles (userId, isAdmin ) VALUES (2, FALSE);
+INSERT INTO roles (userId, isAdmin ) VALUES (3, FALSE);
+INSERT INTO roles (userId, isAdmin ) VALUES (4, FALSE);
 INSERT INTO roles (userId, isAdmin ) VALUES (5, TRUE);
 

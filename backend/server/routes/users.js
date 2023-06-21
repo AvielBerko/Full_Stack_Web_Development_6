@@ -64,14 +64,12 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      result.p6Cookie = databaseManagement.setCookieServer(result.id)
+      result[0].p6Cookie = databaseManagement.setCookieServer(result.id)
       res.send(result);
     }
   );
 });
 
-// router.get("/", (req, res) => {
-//   databaseManagement.(
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
