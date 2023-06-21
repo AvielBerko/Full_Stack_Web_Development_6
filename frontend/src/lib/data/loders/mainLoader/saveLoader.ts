@@ -1,9 +1,9 @@
 import Indexable from "../interfaces/Indexable";
 
 type SaverType = {
-  save: <T extends Indexable>(path: string, item: T) => Promise<void>;
+  save: <T extends Indexable>(path: string, query: any, item: T) => Promise<void>;
   push: <T extends Indexable>(path: string, item: T) => Promise<string>;
-  remove: (path: string) => Promise<void>;
+  remove: (path: string, query: any) => Promise<void>;
   priority: number;
 };
 
@@ -15,10 +15,11 @@ export function registerSavers(savers: SaverType) {
 
 export async function save<T extends Indexable>(
   path: string,
+  query: any,
   item: T
 ): Promise<void> {
   for (const func of saverFunctions) {
-    await func.save(path, item);
+    await func.save(path, item, query);
   }
 }
 
@@ -39,8 +40,8 @@ export async function push<T extends Indexable>(path: string, item: T):Promise<s
   return id;
 }
 
-export  async function remove(path: string):Promise<void> {
+export  async function remove(path: string, query: any):Promise<void> {
   for (const func of saverFunctions) {
-    await func.remove(path);
+    await func.remove(path, query);
   }
 }

@@ -2,18 +2,24 @@ import { ListGroupItem, Button, Col, Container, Row } from "react-bootstrap";
 import { useState } from "react";
 import EdibaleLabel from "../../../edibaleLabel/edibale-label";
 import UserPassword from "../../../../lib/data/dataObjects/UserPassword";
+import { COOKIE_NAME } from "../../../../lib/data/loders/mainLoader/getLoader";
 
 type UserDataItemProps = {
   up: UserPassword;
+  cookie: string;
   onDeleted: (up: UserPassword) => void;
 };
 
-export default function UserDataItem({ up, onDeleted }: UserDataItemProps) {
+export default function UserDataItem({ up, cookie, onDeleted }: UserDataItemProps) {
   if (!up) return <></>;
 
   const [isEditable, setIsEditable] = useState<Boolean>(false);
   const [userId, _] = useState<string>(up.id || "");
   const [password, setPassword] = useState<string>(up.password || "");
+
+  const createObject = (key: string, value: string) => {
+    return Object.assign({}, { [key]: value });
+  }
 
   const handleEdit = () => {
     setIsEditable(false);
@@ -21,7 +27,7 @@ export default function UserDataItem({ up, onDeleted }: UserDataItemProps) {
       ...(up.toUnknowObject() as any),
       password,
     });
-    newUserPassword.save();
+    newUserPassword.save(createObject(COOKIE_NAME, cookie));
   };
 
   return (
