@@ -52,7 +52,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/logout", (req, res) => {
-  databaseManagement.deleteCookieByUserId(req.params.id)? res.send("logout"): res.status(404).send("not logout");
+  databaseManagement.deleteCookieByUserId(req.params.id)? res.send(JSON.parse('{"result" : "logout" }')): res.status(404).send(JSON.parse('{"result" : "not logout" }'));
 });
 
 router.get("/", (req, res) => {
