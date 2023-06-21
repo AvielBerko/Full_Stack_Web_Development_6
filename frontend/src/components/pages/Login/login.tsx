@@ -16,7 +16,7 @@ export default function Login() {
   const [alert, setAlert] = useState<Nullable<string>>(null);
 
   const [auth, setAuth] = useSession<Nullable<User>>("user", null, UserSerializer);
-  const [isAdmin, setIsAdmin] = useSession<boolean>("isAdmin", false);
+  const [_, setIsAdmin] = useSession<boolean>("isAdmin", false);
 
   const navigate = useNavigate();
 
