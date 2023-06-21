@@ -6,29 +6,28 @@ const router = express.Router();
 router.use(logger);
 
 router.get("/:id/todos", (req, res) => {
-  databaseManagement.getEntityByColumns(
-    "todos",
-    "userId",
-    req.params.id,
-    "completed",
-    req.query.completed,
-    (result) => {
-      res.send(result);
-    }
-  );
+  if (req.query.completed) {
+    databaseManagement.getEntityByColumns(
+      "todos",
+      "userId",
+      req.params.id,
+      "completed",
+      req.query.completed,
+      (result) => {
+        res.send(result);
+      }
+    );
+  } else {
+    databaseManagement.getEntityByColumn(
+      "todos",
+      "userId",
+      req.params.id,
+      (result) => {
+        res.send(result);
+      }
+    );
+  }
 });
-
-router.get("/:id/todos", (req, res) => {
-  databaseManagement.getEntityByColumn(
-    "todos",
-    "userId",
-    req.params.id,
-    (result) => {
-      res.send(result);
-    }
-  );
-});
-
 
 router.get("/:id/posts", (req, res) => {
   databaseManagement.getEntityByColumn(
@@ -52,6 +51,10 @@ router.get("/:id", (req, res) => {
   );
 });
 
+router.get("/:id/logout", (req, res) => {
+  databaseManagement.deleteCookieByUserId(req.params.id)? res.send("logout"): res.status(404).send("not logout");
+});
+
 router.get("/", (req, res) => {
   databaseManagement.getEntityByJoin(
     "users",
@@ -64,12 +67,11 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      result[0].p6Cookie = databaseManagement.setCookieServer(result.id)
+      result[0].p6Cookie = databaseManagement.setCookieServer(result[0].id);
       res.send(result);
     }
   );
 });
-
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {

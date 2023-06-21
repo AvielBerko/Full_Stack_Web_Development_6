@@ -6,11 +6,16 @@ const router = express.Router();
 router.use(logger);
 
 router.get("/", (req, res) => {
-  databaseManagement.getAllEntities("user_passwords", (result) => {
-    res.send(result);
+  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
+    if (result) {
+      databaseManagement.getAllEntities("user_passwords", (result) => {
+        res.send(result);
+      });
+    } else {
+      res.status(304).send("you are not admin");
+    }
   });
 });
-
 
 router.get("/:id", (req, res) => {
   databaseManagement.getEntityByColumn(
@@ -37,11 +42,8 @@ router.post("/", (req, res) => {
             "id",
             result.insertId,
             (result) => {
-              res.setHeader(
-                "Set-Cookie",
-                `p6Cookie=${databaseManagement.setCookieServer(
-                  result.insertId
-                )}`
+              result[0].p6Cookie = databaseManagement.setCookieServer(
+                result[0].id
               );
               res.send(result);
             }
@@ -58,25 +60,39 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  databaseManagement.updateEntityById(
-    "user_passwords",
-    req.params.id,
-    req.body,
-    (result) => {
-      // res.send(`mange to update user_passwords with id ${req.params.id}`);
-      res.send(req.body);
+  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
+    if (result) {
+      databaseManagement.updateEntityById(
+        "user_passwords",
+        req.params.id,
+        req.body,
+        (result) => {
+          res.send(req.body);
+        }
+      );
+    } else {
+      res.status(304).send("you are not admin");
     }
-  );
+  });
 });
 
 router.delete("/:id", (req, res) => {
-  databaseManagement.deleteEntityById(
-    "user_passwords",
-    req.params.id,
-    (result) => {
-      res.send(`mange to delete user_passwords with id ${req.params.id}`);
+  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
+    if (result) {
+      databaseManagement.deleteEntityById(
+        "user_passwords",
+        req.params.id,
+        (result) => {
+          res.send(`mange to delete user_passwords with id ${req.params.id}`);
+        }
+      );
+      databaseManagement.deleteEntityById("users", req.params.id, (result) => {
+        res.send(`mange to delete user with id ${req.params.id}}`);
+      });
+    } else {
+      res.status(304).send("you are not admin");
     }
-  );
+  });
 });
 
 function logger(req, res, next) {

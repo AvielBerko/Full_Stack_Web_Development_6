@@ -22,14 +22,14 @@ async function find(path: string, query: any): Promise<any[]> {
   return fetch(`${SERVER_URL}/${path}?${queryStr.join("&")}`)
     .then((res) => res.json())
     .then((data) => {
-      let cookie = data[COOKIE_NAME];
+      let cookie = data[0][COOKIE_NAME];
       if (cookie) {
         // make the cookie to expire in 1 day
         const date = new Date();
         date.setDate(date.getDate() + 1);
         cookie += `; expires=${date.toUTCString()}`;
         document.cookie = `${COOKIE_NAME}=${cookie};`;
-        delete data.COOKIE_NAME;
+        delete data[0].COOKIE_NAME;
       }
       return data as any[];
     });

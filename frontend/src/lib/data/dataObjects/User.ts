@@ -110,7 +110,7 @@ export default class User extends DataObject {
   }
 
   public get role(): Promise<boolean> {
-    return getOne(`roles/${this.id}`).then((role: any) => role.isAdmin as boolean);
+    return getOne(`roles/${this.id}`).then((role: any) => role[0].isAdmin as boolean);
   }
 
   public async logout(): Promise<any> {
