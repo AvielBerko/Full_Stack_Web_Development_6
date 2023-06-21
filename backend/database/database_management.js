@@ -4,16 +4,13 @@ let cookieManagement = {};
 const setCookieServer = (userId) => {
   const cookie = Math.random().toString(36).substring(2, 15);
   cookieManagement[userId] = cookie;
-  console.log("!!!!!!!!!!!!!!!!setCookieServer!!!!!!!!!!!!!1");
-  console.log(JSON.stringify(cookieManagement));
-  console.log("!!!!!!!!!!!!setCookieServer!!!!!!!!!!!!!!!!!1");
-  return cookie;
+  console.log(
+    `SERVER: cookieManagement: ${JSON.stringify(cookieManagement)} `
+  );  return cookie;
 };
 
 const getIdByCookie = (cookie) => {
-  console.log("!!!!!!!!!!!!!!!getIdByCookie!!!!!!!!!!!!!!2");
   console.log(JSON.stringify(cookieManagement));
-  console.log("!!!!!!!!!!!!!getIdByCookie!!!!!!!!!!!!!!!!2");
   for (let key in cookieManagement) {
     if (cookieManagement[key] === cookie) {
       return key;
@@ -28,11 +25,10 @@ const getCookieByUserId = (userId) => {
 const deleteCookieByUserId = (userId) => {
   if (cookieManagement[userId]) {
     delete cookieManagement[userId];
-    console.log("!!!!!!!!!!!!!!!!deleteCookieByUserId!!!!!!!!!!!!!3");
     cookieManagement[userId];
-    console.log(userId);
-    console.log(JSON.stringify(cookieManagement));
-    console.log("!!!!!!!!!!!!deleteCookieByUserId!!!!!!!!!!!!!!!!!3");
+    console.log(
+      `SERVER: cookieManagement: ${JSON.stringify(cookieManagement)} `
+    );
     return true;
   }
   return false;
