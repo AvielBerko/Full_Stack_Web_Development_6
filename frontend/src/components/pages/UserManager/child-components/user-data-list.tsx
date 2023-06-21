@@ -18,7 +18,7 @@ export default function UserDataList({ user }: { user: User }) {
     userPasswords.all({COOKIE_NAME: cookie}).then((users) => {
       setUsersData(users);
     });
-  }, [user]);
+  }, [cookie]);
 
   const handleUserDelete = (up: UserPassword) => {
     if (!up) return;

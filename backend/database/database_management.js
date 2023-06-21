@@ -19,6 +19,10 @@ const getCookieByUserId = (userId) => {
   return cookieManagement[userId];
 };
 
+// const isAdmin() => {
+//   return true;
+// }
+
 function removeValidColumn(result) {
   result.forEach((element) => {
     if (element.valid) {

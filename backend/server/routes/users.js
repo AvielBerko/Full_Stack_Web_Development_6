@@ -6,27 +6,28 @@ const router = express.Router();
 router.use(logger);
 
 router.get("/:id/todos", (req, res) => {
-  databaseManagement.getEntityByColumns(
-    "todos",
-    "userId",
-    req.params.id,
-    "completed",
-    req.query.completed,
-    (result) => {
-      res.send(result);
-    }
-  );
-});
-
-router.get("/:id/todos", (req, res) => {
-  databaseManagement.getEntityByColumn(
-    "todos",
-    "userId",
-    req.params.id,
-    (result) => {
-      res.send(result);
-    }
-  );
+  if (req.query.completed) {
+    databaseManagement.getEntityByColumns(
+      "todos",
+      "userId",
+      req.params.id,
+      "completed",
+      req.query.completed,
+      (result) => {
+        res.send(result);
+      }
+    );
+  }
+  else {
+    databaseManagement.getEntityByColumn(
+      "todos",
+      "userId",
+      req.params.id,
+      (result) => {
+        res.send(result);
+      }
+    );
+  }
 });
 
 
@@ -64,12 +65,11 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      result[0].p6Cookie = databaseManagement.setCookieServer(result.id)
+      result[0].p6Cookie = databaseManagement.setCookieServer(result.id);
       res.send(result);
     }
   );
 });
-
 
 router.post("/", (req, res) => {
   databaseManagement.insertQuery("users", req.body, (result) => {
