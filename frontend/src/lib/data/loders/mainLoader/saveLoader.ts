@@ -19,7 +19,7 @@ export async function save<T extends Indexable>(
   item: T
 ): Promise<void> {
   for (const func of saverFunctions) {
-    await func.save(path, item, query);
+    await func.save(path, query, item );
   }
 }
 
