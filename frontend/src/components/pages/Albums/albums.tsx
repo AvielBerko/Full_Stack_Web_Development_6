@@ -29,14 +29,14 @@ export default function Albums() {
         <Container>
           <Row className="text-center">
             <Col>
-              <h1>Albums</h1>
+              <h1>Albums - Not Yet Implemented</h1>
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col>
               <AlbumsList />
             </Col>
-          </Row>
+          </Row> */}
         </Container>
         <Outlet />
       </div>
