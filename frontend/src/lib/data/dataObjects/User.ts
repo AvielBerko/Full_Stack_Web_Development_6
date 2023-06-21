@@ -114,6 +114,6 @@ export default class User extends DataObject {
   }
 
   public async logout(): Promise<any> {
-    return fetch(`${this.fullPath}/logout`).then((res) => res.json());
+    return getOne(`${this.fullPath}/logout`).then((res: any) => res.json());
   }
 }
