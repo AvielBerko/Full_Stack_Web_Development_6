@@ -4,10 +4,16 @@ let cookieManagement = {};
 const setCookieServer = (userId) => {
   const cookie = Math.random().toString(36).substring(2, 15);
   cookieManagement[userId] = cookie;
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+  console.log(JSON.stringify(cookieManagement));
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
   return cookie;
 };
 
 const getIdByCookie = (cookie) => {
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2");
+  console.log(JSON.stringify(cookieManagement));
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2");
   for (let key in cookieManagement) {
     if (cookieManagement[key] === cookie) {
       return key;
@@ -19,9 +25,21 @@ const getCookieByUserId = (userId) => {
   return cookieManagement[userId];
 };
 
-// const isAdmin() => {
-//   return true;
-// }
+const isAdminByCookie = (cookie, callback) => {
+  const userId = getIdByCookie(cookie);
+  if (userId) {
+    const query = `SELECT isAdmin FROM roles WHERE userId = ${userId}`;
+    runQuery(query, function (err, result) {
+      if (err) throw err;
+      if (result[0].isAdmin) {
+        callback(true);
+      }
+      else {
+        callback(false);
+      }
+    });
+  }
+}
 
 function removeValidColumn(result) {
   result.forEach((element) => {
@@ -221,7 +239,6 @@ exports.deleteEntityById = deleteEntityById;
 exports.updateEntityById = updateEntityById;
 exports.getEntityByJoin = getEntityByJoin;
 exports.setCookieServer = setCookieServer;
-exports.getIdByCookie = getIdByCookie;
-exports.getCookieByUserId = getCookieByUserId;
+exports.isAdminByCookie = isAdminByCookie;
 exports.getAllEntities = getAllEntities;
 exports.getEntityByColumns = getEntityByColumns;

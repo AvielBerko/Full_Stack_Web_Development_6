@@ -65,7 +65,7 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      result[0].p6Cookie = databaseManagement.setCookieServer(result.id);
+      result[0].p6Cookie = databaseManagement.setCookieServer(result[0].id);
       res.send(result);
     }
   );

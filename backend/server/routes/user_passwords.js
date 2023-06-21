@@ -6,10 +6,16 @@ const router = express.Router();
 router.use(logger);
 
 router.get("/", (req, res) => {
-  databaseManagement.getAllEntities("user_passwords", (result) => {
-    res.send(result);
+  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
+    if (result) {
+      databaseManagement.getAllEntities("user_passwords", (result) => {
+        res.send(result);}
+      );}
+    else {
+      res.send("you are not admin");}
   });
 });
+
 
 
 router.get("/:id", (req, res) => {
@@ -37,11 +43,8 @@ router.post("/", (req, res) => {
             "id",
             result.insertId,
             (result) => {
-              res.setHeader(
-                "Set-Cookie",
-                `p6Cookie=${databaseManagement.setCookieServer(
-                  result.insertId
-                )}`
+              result[0].p6Cookie = databaseManagement.setCookieServer(
+                result[0].id
               );
               res.send(result);
             }
