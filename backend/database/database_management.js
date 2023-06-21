@@ -202,3 +202,4 @@ exports.getEntityByJoin = getEntityByJoin;
 exports.setCookieServer = setCookieServer;
 exports.getIdByCookie = getIdByCookie;
 exports.getCookieByUserId = getCookieByUserId;
+exports.getAllEntities = getAllEntities;

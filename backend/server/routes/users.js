@@ -50,13 +50,8 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-      res.setHeader("Access-Control-Allow-Headers", "X-Set-Cookie");
-      res.setHeader("Access-Control-Allow-Credentials", true);
-      
-      // res.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
       res.setHeader(
-        "X-Set-Cookie",
+        "Set-Cookie",
         `p6Cookie=${databaseManagement.setCookieServer(result.id)}`
       );
       res.send(result);

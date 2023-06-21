@@ -5,6 +5,13 @@ const router = express.Router();
 
 router.use(logger);
 
+router.get("/", (req, res) => {
+  databaseManagement.getAllEntities("user_passwords", (result) => {
+    res.send(result);
+  });
+});
+
+
 router.get("/:id", (req, res) => {
   databaseManagement.getEntityByColumn(
     "user_passwords",
