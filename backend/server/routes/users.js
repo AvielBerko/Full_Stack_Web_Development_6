@@ -6,6 +6,19 @@ const router = express.Router();
 router.use(logger);
 
 router.get("/:id/todos", (req, res) => {
+  databaseManagement.getEntityByColumns(
+    "todos",
+    "userId",
+    req.params.id,
+    "completed",
+    req.query.completed,
+    (result) => {
+      res.send(result);
+    }
+  );
+});
+
+router.get("/:id/todos", (req, res) => {
   databaseManagement.getEntityByColumn(
     "todos",
     "userId",
@@ -15,6 +28,7 @@ router.get("/:id/todos", (req, res) => {
     }
   );
 });
+
 
 router.get("/:id/posts", (req, res) => {
   databaseManagement.getEntityByColumn(
@@ -50,10 +64,7 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      res.setHeader(
-        "Set-Cookie",
-        `p6Cookie=${databaseManagement.setCookieServer(result.id)}`
-      );
+      result.p6Cookie = databaseManagement.setCookieServer(result.id)
       res.send(result);
     }
   );

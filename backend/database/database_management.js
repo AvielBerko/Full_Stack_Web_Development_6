@@ -60,6 +60,23 @@ const getEntityByColumn = (table, columnName, columnValue, callback) => {
   });
 };
 
+const getEntityByColumns = (
+  table,
+  columnName1,
+  columnValue1,
+  columnName2,
+  columnValue2,
+  callback
+) => {
+  let query = `SELECT * FROM ${table} WHERE ${columnName1} = '${columnValue1}' AND ${columnName2} = ${columnValue2} AND valid = TRUE`;
+
+  runQuery(query, function (err, result) {
+    if (err) throw err;
+    removeValidColumn(result);
+    callback(result);
+  });
+};
+
 const getAllEntities = (table, callback) => {
   let query = `SELECT * FROM ${table}`;
 
@@ -101,7 +118,7 @@ const insertQuery = (table, values, callback) => {
   let query;
   switch (table) {
     case "users":
-      query = `INSERT INTO ${table} (username, email, companyName, city) VALUES ('${values.username}', '${values.email}', '${values.companyName}', '${values.city}');`;
+      query = `INSERT INTO ${table} (username, email, companyName, city) VALUES ('${values.username}', '${values.email}', '${values.companyName}', '${values.city}'); INSERT INTO roles (userId, isAdmin) VALUES (LAST_INSERT_ID(), FALSE);`;
       break;
     case "todos":
       query = `INSERT INTO ${table} (userId, title) VALUES ('${values.userId}', '${values.title}');`;
@@ -203,3 +220,4 @@ exports.setCookieServer = setCookieServer;
 exports.getIdByCookie = getIdByCookie;
 exports.getCookieByUserId = getCookieByUserId;
 exports.getAllEntities = getAllEntities;
+exports.getEntityByColumns = getEntityByColumns;
