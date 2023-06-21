@@ -1,4 +1,4 @@
-import { getList } from "../loders/mainLoader/getLoader";
+import { getList, getOne } from "../loders/mainLoader/getLoader";
 import Album from "./Album";
 import DataObject, { DataObjectType } from "./DataObject";
 import Todo from "./Todo";
@@ -108,5 +108,8 @@ export default class User extends DataObject {
       posts.map((post) => new Post(post))
     );
   }
-  
+
+  public get role(): Promise<boolean> {
+    return getOne(`roles/${this.id}`).then((role: any) => role.isAdmin);
+  }
 }

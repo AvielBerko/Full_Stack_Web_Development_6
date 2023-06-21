@@ -13,10 +13,9 @@ export default function UserDataList({ user }: { user: User }) {
   if (!user?.id) return <></>;
 
   useEffect(() => {
-    // TODO - check if cookie is valid
-    //if (!cookie) return;
+    if (!cookie) return;
     const userPasswords = new UserPassword({});
-    userPasswords.all("").then((users) => {
+    userPasswords.all({COOKIE_NAME: cookie}).then((users) => {
       setUsersData(users);
     });
   }, [user]);
@@ -43,8 +42,8 @@ export default function UserDataList({ user }: { user: User }) {
     <ListGroup>
       <ListGroupItem key="-23434989">
         <InputGroup>
-          <Button onClick={addUser}>Add User</Button>
-          {/* <Form.Control
+          {/*<Button onClick={addUser}>Add User</Button>
+           <Form.Control
               value={new}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewTodoTitle(e.target.value)

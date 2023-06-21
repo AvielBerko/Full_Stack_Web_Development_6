@@ -1,4 +1,4 @@
-import { getList } from "../loders/mainLoader/getLoader";
+import { find } from "../loders/mainLoader/getLoader";
 import DataObject, { DataObjectType } from "./DataObject";
 
 
@@ -61,8 +61,8 @@ export default class UserPassword extends DataObject {
     this._password = objTyped.password;
   }
 
-  public async all(cookie: string): Promise<UserPassword[]> {
-    return getList(`${this.path}`, cookie).then((user_passwords: any[]) =>
+  public async all(query: any): Promise<UserPassword[]> {
+    return find(`${this.path}`, query).then((user_passwords: any[]) =>
       user_passwords.map((up) => new UserPassword(up))
     );
   }

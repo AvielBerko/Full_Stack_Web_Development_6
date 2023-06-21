@@ -3,7 +3,7 @@ import Indexable from "../interfaces/Indexable";
 export const COOKIE_NAME = "p6Cookie";
 
 type GettersType = {
-  getList: <T extends Indexable>(path: string, cookie: Nullable<string>) => Promise<T[]>;
+  getList: <T extends Indexable>(path: string) => Promise<T[]>;
   getOne: <T extends Indexable>(fullPath: string) => Promise<T | null>;
   find: (path: string, query: any) => Promise<any[]>;
   page: (path: string, page: number, limit: number) => Promise<any[]>;
@@ -18,11 +18,11 @@ export function registerGetters(getters: GettersType) {
   functions.sort((a, b) => a.priority - b.priority);
 }
 
-export async function getList<T extends Indexable>(path: string, cookie: Nullable<string> = null): Promise<T[]> {
+export async function getList<T extends Indexable>(path: string): Promise<T[]> {
   let results: { [id: string]: T } = {};
   const prioretizedResults: { [priorety: string]: any } = {};
   for (const func of functions) {
-    const res = await func.getList<T>(path, cookie);
+    const res = await func.getList<T>(path);
     if (!res || res.length === 0) {
       continue;
     }

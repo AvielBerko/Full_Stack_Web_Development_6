@@ -1,12 +1,15 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSession } from "../../hooks/use-session";
+import { Nullable } from "../../types/react.types";
 
 export default function TopNavbar() {
 
   const [user,setUser] = useSession("user",null);
+  const [isAdmin, setIsAdmin] = useSession<Nullable<boolean>>("isAdmin", null);
 
   const logOut = () => {
     setUser(null);
+    setIsAdmin(false);
   };
 
   const notLoggedInLinks = (
@@ -25,7 +28,7 @@ export default function TopNavbar() {
         <Nav.Link href="/todos">My Todos</Nav.Link>
         <Nav.Link href="/posts">My Posts</Nav.Link>
         <Nav.Link href="/albums">My Albums</Nav.Link>
-        <Nav.Link href="/user_passwords">User Manager</Nav.Link>
+        {isAdmin && <Nav.Link href="/user_passwords">User Manager</Nav.Link>}
         <Nav.Link href="#" onClick={logOut}>
           Logout
         </Nav.Link>

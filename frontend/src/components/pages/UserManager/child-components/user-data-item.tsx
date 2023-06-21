@@ -29,8 +29,10 @@ export default function UserDataItem({ up, onDeleted }: UserDataItemProps) {
       {!isEditable && (
         <ListGroupItem>
           <div className="d-flex justify-content-between">
-            <h5>{userId}</h5>
-            <h5>{password}</h5>
+            <div className="d-flex gap-2">
+              <p>{userId}</p>
+              <p>{password}</p>
+            </div>
             <div className="d-flex gap-2">
               <Button onClick={() => setIsEditable(!isEditable)}>Edit</Button>
               <Button onClick={() => onDeleted(up)}>Delete</Button>
