@@ -2,8 +2,9 @@ import { registerSavers } from "../mainLoader/saveLoader";
 import Indexable from "../interfaces/Indexable";
 import { SERVER_URL } from "./env";
 
-async function save<T extends Indexable>(path: string, item: T) {
-    await fetch(`${SERVER_URL}/${path}`, {
+async function save<T extends Indexable>(path: string, query: any, item: T) {
+  const queryStr = Object.keys(query).map((key) => `${key}=${query[key]}`);
+    await fetch(`${SERVER_URL}/${path}?${queryStr.join("&")}`, {
         method: "PUT",
         body: JSON.stringify(item),
         headers: {
@@ -30,8 +31,9 @@ async function push<T extends Indexable>(
   return pushedItem.id.toString();
 }
 
-async function remove(path: string): Promise<void> {
-    await fetch(`${SERVER_URL}/${path}`, {
+async function remove(path: string, query: any): Promise<void> {
+    const queryStr = Object.keys(query).map((key) => `${key}=${query[key]}`);
+    await fetch(`${SERVER_URL}/${path}?${queryStr.join("&")}`, {
         method: "DELETE",
     });
 }
