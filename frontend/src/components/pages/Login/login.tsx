@@ -20,12 +20,22 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  // async function updateUserRole() {
+  //   try {
+  //     const admin: boolean = await user.getRole();
+  //     setIsAdmin(admin);
+  //   } catch (error) {
+  //     setIsAdmin(false);
+  //     console.error(error);
+  //   }
+  // }
+
   const handleLoginClick = () => {
     const user = new User({});
     user.first({ username, password }).then(() => {
       if (user.id) {
         // request role
-        user.role.then((admin) => setIsAdmin(admin ? true : false)).catch(() => setIsAdmin(false));
+        user.role.then((admin: boolean) => setIsAdmin(admin ? true : false)).catch(() => setIsAdmin(false));
         console.log("login success", user);
         setAuth(user);
       }

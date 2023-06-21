@@ -110,6 +110,15 @@ export default class User extends DataObject {
   }
 
   public get role(): Promise<boolean> {
-    return getOne(`roles/${this.id}`).then((role: any) => role.isAdmin);
+    return getOne(`roles/${this.id}`).then((role: any) => role.isAdmin as boolean);
   }
+
+  // public async role(): Promise<boolean> {
+  //   try {
+  //     const role: any = await getOne(`roles/${this.id}`);
+  //     return role.isAdmin as boolean;
+  //   } catch (error) {
+  //     throw new Error('Failed to fetch user role');
+  //   }
+  // }
 }
