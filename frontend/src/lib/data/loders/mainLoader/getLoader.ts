@@ -1,4 +1,3 @@
-import { Nullable } from "../../../../types/react.types";
 import Indexable from "../interfaces/Indexable";
 export const COOKIE_NAME = "p6Cookie";
 
