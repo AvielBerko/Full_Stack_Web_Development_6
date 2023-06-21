@@ -67,8 +67,8 @@ export default class DataObject implements Indexable {
     return this;
   }
 
-  public async save(): Promise<void> {
-    await save(this.fullPath, this.toUnknowObject() as Indexable);
+  public async save(query: any = null): Promise<void> {
+    await save(this.fullPath, query, this.toUnknowObject() as Indexable);
   }
 
   public async push(): Promise<void> {
@@ -76,8 +76,8 @@ export default class DataObject implements Indexable {
     this.id = data;
   }
 
-  public async remove(): Promise<void> {
-    await remove(this.fullPath);
+  public async remove(query: any = null): Promise<void> {
+    await remove(this.fullPath, query);
   }
 
 }

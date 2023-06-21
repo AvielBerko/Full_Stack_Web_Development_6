@@ -28,11 +28,11 @@ export default function UserDataList({ user }: { user: User }) {
     if (!up) return;
     const newUsersData = usersData.filter((p) => p.id !== up.id);
     setUsersData(newUsersData);
-    up.remove();
+    up.remove(createObject(COOKIE_NAME, cookie));
   };
 
   const userDataDOM = usersData.map((up: UserPassword) => {
-    return <UserDataItem up={up} onDeleted={handleUserDelete} key={up.id} />;
+    return <UserDataItem up={up} cookie={cookie} onDeleted={handleUserDelete} key={up.id} />;
   });
 
   return (
