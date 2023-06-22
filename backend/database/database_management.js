@@ -1,5 +1,11 @@
 const mysql = require("mysql");
+
 let cookieManagement = {};
+const COOKIE_NAME = "p6Cookie";
+
+const getCookieName = () => {
+  return COOKIE_NAME;
+};
 
 const setCookieServer = (userId) => {
   const cookie = Math.random().toString(36).substring(2, 15);
@@ -9,7 +15,7 @@ const setCookieServer = (userId) => {
 };
 
 const getIdByCookie = (cookie) => {
-  console.log(JSON.stringify(cookieManagement));
+  console.log(`SERVER: cookieManagement: ${JSON.stringify(cookieManagement)} `);
   for (let key in cookieManagement) {
     if (cookieManagement[key] === cookie) {
       return key;
@@ -250,3 +256,4 @@ exports.isAdminByCookie = isAdminByCookie;
 exports.getAllEntities = getAllEntities;
 exports.getEntityByColumns = getEntityByColumns;
 exports.deleteCookieByUserId = deleteCookieByUserId;
+exports.getCookieName = getCookieName;

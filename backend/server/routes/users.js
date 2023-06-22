@@ -52,7 +52,9 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/logout", (req, res) => {
-  databaseManagement.deleteCookieByUserId(req.params.id)? res.send(JSON.parse('{"result" : "logout" }')): res.status(404).send(JSON.parse('{"result" : "not logout" }'));
+  databaseManagement.deleteCookieByUserId(req.params.id)
+    ? res.send(JSON.parse('{"result" : "logout" }'))
+    : res.status(404).send(JSON.parse('{"result" : "not logout" }'));
 });
 
 router.get("/", (req, res) => {
@@ -67,24 +69,32 @@ router.get("/", (req, res) => {
     req.query.password,
 
     (result) => {
-      result[0].p6Cookie = databaseManagement.setCookieServer(result[0].id);
+      if (!result || result.length == 0 || result[0].id == undefined) {
+        res.status(404).send(JSON.parse('[{"result" : "not found" }]'));
+        return;
+      }
+
+      result[0][databaseManagement.getCookieName()] =
+        databaseManagement.setCookieServer(result[0].id);
       res.send(result);
     }
   );
 });
 
 router.post("/", (req, res) => {
-  databaseManagement.insertQuery("users", req.body, (result) => {
-    console.log(result);
+  databaseManagement.insertQuery("users", req.body, (resultA) => {
     databaseManagement.getEntityByColumn(
       "users",
       "id",
-      result.insertId,
+      resultA.insertId,
       (result) => {
-        res.send(result);
+        console.log("resilt: " + result);
+        let obg = { ...req.body, id: resultA.insertedId };
+
+        res.send(obg);
       }
     );
-    console.log(`SERVER: mange to insert new user with id ${result.insertId}`);
+    console.log(`SERVER: mange to insert new user with id ${resultA.insertId}`);
   });
 });
 

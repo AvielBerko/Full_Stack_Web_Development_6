@@ -42,7 +42,7 @@ export default function Login() {
       else {
         setAlert(WRONG_LOGIN);
       }
-    });
+    }).catch(() => setAlert(WRONG_LOGIN));
   };
 
   useEffect(() => {

@@ -54,11 +54,9 @@ const UserInfo = ({ user, setUser }: UserItemProps) => {
       }
       newUser.save();
       setUser(newUser);
-      setIsEditable(!isEditable);
       });
     }
     else {
-      setIsEditable(!isEditable);
       newUser.save();
       setUser(newUser);
     }
@@ -80,7 +78,13 @@ const UserInfo = ({ user, setUser }: UserItemProps) => {
         <EdibaleLabel isEditable={isEditable} label='Company' setter={setCompanyNameValue} value={companyNameValue} WrapperComponent={Card.Text} />
       </Card.Body>
     </Card>
-    <BlockButton onClick={onSubmit}>{isEditable ? "Save" : "Edit"}</BlockButton>
+    <BlockButton onClick={() => {
+      if (isEditable) {
+         onSubmit();
+      }      
+      setIsEditable(!isEditable);
+      }
+      }>{isEditable ? "Save" : "Edit"}</BlockButton>
   </>
   );
 };

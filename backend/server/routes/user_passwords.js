@@ -6,15 +6,18 @@ const router = express.Router();
 router.use(logger);
 
 router.get("/", (req, res) => {
-  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
-    if (result) {
-      databaseManagement.getAllEntities("user_passwords", (result) => {
-        res.send(result);
-      });
-    } else {
-      res.status(304).send("you are not admin");
+  databaseManagement.isAdminByCookie(
+    req.query[databaseManagement.getCookieName()],
+    (result) => {
+      if (result) {
+        databaseManagement.getAllEntities("user_passwords", (result) => {
+          res.send(result);
+        });
+      } else {
+        res.status(304).send("you are not admin");
+      }
     }
-  });
+  );
 });
 
 router.get("/:id", (req, res) => {
@@ -42,9 +45,8 @@ router.post("/", (req, res) => {
             "id",
             result.insertId,
             (result) => {
-              result[0].p6Cookie = databaseManagement.setCookieServer(
-                result[0].id
-              );
+              result[0][databaseManagement.getCookieName()] =
+                databaseManagement.setCookieServer(result[0].id);
               res.send(result);
             }
           );
@@ -60,36 +62,42 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
-    if (result) {
-      databaseManagement.updateEntityById(
-        "user_passwords",
-        req.params.id,
-        req.body,
-        (result) => {
-          res.send(req.body);
-        }
-      );
-    } else {
-      res.status(304).send("you are not admin");
+  databaseManagement.isAdminByCookie(
+    req.query[databaseManagement.getCookieName()],
+    (result) => {
+      if (result) {
+        databaseManagement.updateEntityById(
+          "user_passwords",
+          req.params.id,
+          req.body,
+          (result) => {
+            res.send(req.body);
+          }
+        );
+      } else {
+        res.status(304).send("you are not admin");
+      }
     }
-  });
+  );
 });
 
 router.delete("/:id", (req, res) => {
-  databaseManagement.isAdminByCookie(req.query.p6Cookie, (result) => {
-    if (result) {
-      databaseManagement.deleteEntityById(
-        "user_passwords",
-        req.params.id,
-        (result) => {
-          res.send(`mange to delete user_passwords with id ${req.params.id}`);
-        }
-      );
-    } else {
-      res.status(304).send("you are not admin");
+  databaseManagement.isAdminByCookie(
+    req.query[databaseManagement.getCookieName()],
+    (result) => {
+      if (result) {
+        databaseManagement.deleteEntityById(
+          "user_passwords",
+          req.params.id,
+          (result) => {
+            res.send(`mange to delete user_passwords with id ${req.params.id}`);
+          }
+        );
+      } else {
+        res.status(304).send("you are not admin");
+      }
     }
-  });
+  );
 });
 
 function logger(req, res, next) {

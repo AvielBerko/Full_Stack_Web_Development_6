@@ -22,6 +22,7 @@ async function find(path: string, query: any): Promise<any[]> {
   return fetch(`${SERVER_URL}/${path}?${queryStr.join("&")}`)
     .then((res) => res.json())
     .then((data) => {
+      try {
       let cookie = data[0][COOKIE_NAME];
       if (cookie) {
         // make the cookie to expire in 1 day
@@ -31,6 +32,9 @@ async function find(path: string, query: any): Promise<any[]> {
         document.cookie = `${COOKIE_NAME}=${cookie};`;
         delete data[0].COOKIE_NAME;
       }
+    } catch (e) { // No cookie in the response
+      console.log(e);
+    }
       return data as any[];
     });
 }
